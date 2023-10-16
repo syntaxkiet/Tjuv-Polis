@@ -1,12 +1,11 @@
-﻿using System.Security.Cryptography;
-
-namespace Tjuv___Polis
+﻿namespace Tjuv___Polis
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-
+            Console.WriteLine("Hello my friends!");
+            Console.WriteLine("Hej på dig");
             int SizeX = 80;
             int SizeY = 80;
 
@@ -28,7 +27,7 @@ namespace Tjuv___Polis
 
                 Console.WriteLine();
             }
-            
+
         }
     }
 }
