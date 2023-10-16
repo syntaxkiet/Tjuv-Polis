@@ -17,7 +17,7 @@ namespace Tjuv___Polis
 
             Console.ForegroundColor = ConsoleColor.Red;
 
-            for (int x = 0; x < map.GetLength(0); x++)
+            for (int x = 0; x < map.GetLength(0); x++)              //Här är en forlopp som visar x - led
             {
                 for (int y = 0; y < map.GetLength(1); y++)
                 {
