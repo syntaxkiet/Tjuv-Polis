@@ -9,6 +9,8 @@ namespace Tjuv___Polis
 
             int SizeX = 80;
             int SizeY = 80;
+			
+			Console.WriteLine("Commit from branch.");
 
             Random rng = new Random();
 
