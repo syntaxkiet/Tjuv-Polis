@@ -1,4 +1,6 @@
-﻿namespace Tjuv___Polis
+﻿using System.Security.Cryptography;
+
+namespace Tjuv___Polis
 {
     public class Person
     {
@@ -90,6 +92,11 @@
             }
         }
 
+        public virtual void Action(Person person)
+        {
+            Console.WriteLine("Person gör någonting");
+        }
+
         public Person()
         {
             rng = new Random();
@@ -100,17 +107,47 @@
 
     public class Police : Person
     {
+        List<Item> confiscated;
         public Police() : base()
         {
-
+            confiscated = new List<Item>();
+        }
+        public override void Action(Person person)
+        {
+            if (person is Thief)
+            {
+                Console.WriteLine("Polisen slår till mot tjuven och beslagtar hans samtliga byten");
+                confiscated = Enumerable.Concat(confiscated, ((Thief)person).loot).ToList();
+                (((Thief)person).loot).Clear();
+                Thread.Sleep(2000);
+                Move();
+                person.Move();
+                
+            }
         }
     }
 
     public class Thief : Person
     {
+        public List<Item> loot { get; set; }
         public Thief() : base()
         {
+            loot = new List<Item>();
 
+        }
+        public override void Action(Person person) 
+        {
+            if(person is Civilian)
+            {
+                Random rng = new Random();
+                int index = rng.Next(0, person.inventory.Count);
+                loot.Add(person.inventory[index]);
+                Console.WriteLine("Tjuv råna medborgare på " + person.inventory[index].Name);
+                person.inventory.RemoveAt(index);
+                Thread.Sleep(2000);
+                Move();
+                person.Move();
+            }
         }
     }
 

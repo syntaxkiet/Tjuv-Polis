@@ -72,7 +72,9 @@
                     person.Move();
                 }
 
-                Console.ReadKey();
+
+                Thread.Sleep(2000);
+                //Console.ReadKey();
                 Console.Clear();
             }
         }
