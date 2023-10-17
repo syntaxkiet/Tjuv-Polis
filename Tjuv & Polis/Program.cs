@@ -39,9 +39,9 @@
                 {
                     map[people.PosX, people.PosY] = people;
                 }
-                for (int x = 0; x < map.GetLength(0); x++)
+                for (int y = 0; y < map.GetLength(1); y++)
                 {
-                    for (int y = 0; y < map.GetLength(1); y++)
+                    for (int x = 0; x < map.GetLength(0); x++)
                     {
                         if (map[x, y] is Police)
                         {
