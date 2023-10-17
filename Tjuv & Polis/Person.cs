@@ -9,7 +9,7 @@
         Random rng;
         public List<Item> inventory = new List<Item>();
 
-        public virtual void Move()
+        public void Move()
         {
             rng = new Random();
             direction = rng.Next(0, 8);

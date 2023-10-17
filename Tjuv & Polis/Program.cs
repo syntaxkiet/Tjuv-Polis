@@ -13,55 +13,66 @@
 
             Random rng = new Random();
 
-            //Police
+            //Add 20 Policemen
             for (int i = 0; i < 10; i++)
             {
                 peopleList.Add(new Police());
             }
 
-            //Thieves
+            //Add 20 Thieves
             for (int i = 0; i < 20; i++)
             {
                 peopleList.Add(new Thief());
             }
 
-            //Civlians
+            //Add 30 Civilians
             for (int i = 0; i < 30; i++)
             {
                 peopleList.Add(new Civilian());
             }
 
-            foreach (Person people in peopleList)
-            {
-                map[people.PosX, people.PosY] = people;
-            }
 
 
-            for (int x = 0; x < map.GetLength(0); x++)
+            while (true)
             {
-                for (int y = 0; y < map.GetLength(1); y++)
+                foreach (Person people in peopleList)
                 {
-                    if (map[x, y] is Police)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Blue;
-                        Console.Write("P");
-                    }
-                    if (map[x, y] is Thief)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.Write("T");
-                    }
-                    if (map[x, y] is Civilian)
-                    {
-                        Console.ForegroundColor = ConsoleColor.White;
-                        Console.Write("C");
-                    }
-                    else
-                    {
-                        Console.Write(" ");
-                    }
+                    map[people.PosX, people.PosY] = people;
                 }
-                Console.WriteLine();
+                for (int x = 0; x < map.GetLength(0); x++)
+                {
+                    for (int y = 0; y < map.GetLength(1); y++)
+                    {
+                        if (map[x, y] is Police)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Blue;
+                            Console.Write("P");
+                        }
+                        if (map[x, y] is Thief)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.Write("T");
+                        }
+                        if (map[x, y] is Civilian)
+                        {
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.Write("C");
+                        }
+                        else
+                        {
+                            Console.Write(" ");
+                        }
+                    }
+                    Console.WriteLine();
+                }
+
+                foreach (Person person in peopleList)
+                {
+                    person.Move();
+                }
+
+                Console.ReadKey();
+                Console.Clear();
             }
         }
     }
