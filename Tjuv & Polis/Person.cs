@@ -114,8 +114,12 @@ namespace Tjuv___Polis
         }
         public override void Action(Person person)
         {
-            if (person is Thief)
+            if (person is Thief && (((Thief)person).loot.Count > 0))
             {
+              
+                Program.arrestCount++;
+
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("Polisen slår till mot tjuven och beslagtar hans samtliga byten");
                 confiscated = Enumerable.Concat(confiscated, ((Thief)person).loot).ToList();
                 (((Thief)person).loot).Clear();
@@ -139,9 +143,11 @@ namespace Tjuv___Polis
         {
             if(person is Civilian)
             {
+                Program.robberyCount++;
                 Random rng = new Random();
                 int index = rng.Next(0, person.inventory.Count);
                 loot.Add(person.inventory[index]);
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("Tjuv råna medborgare på " + person.inventory[index].Name);
                 person.inventory.RemoveAt(index);
                 Thread.Sleep(2000);
@@ -159,6 +165,17 @@ namespace Tjuv___Polis
             inventory.Add(new Item("Mobil"));
             inventory.Add(new Item("Pengar"));
             inventory.Add(new Item("Klocka"));
+        }
+
+        public override void Action(Person person)
+        {
+            if (person is Police || person is Civilian)
+            {
+                Move();
+                person.Move();
+            }
+            
+      
         }
     }
 

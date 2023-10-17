@@ -4,6 +4,8 @@
     {
         public static int sizeX = 100;
         public static int sizeY = 25;
+        public static int robberyCount = 0;
+        public static int arrestCount = 0;
 
         static void Main(string[] args)
         {
@@ -57,7 +59,7 @@
                         if (map[x, y] is Civilian)
                         {
                             Console.ForegroundColor = ConsoleColor.White;
-                            Console.Write("C");
+                            Console.Write("M");
                         }
                         else
                         {
@@ -73,10 +75,27 @@
                 }
 
 
-                Thread.Sleep(2000);
-                //Console.ReadKey();
+                Console.WriteLine();
+                for (int i = 0; i < peopleList.Count; i++)
+                {
+                    for (int y = 0; y < peopleList.Count; y++)
+                    {
+                        if (peopleList[i].PosY == peopleList[y].PosY && peopleList[i].PosX == peopleList[y].PosX && peopleList[i] != peopleList[y])
+                        {
+                            peopleList[i].Action(peopleList[y]);
+                        }
+                    }
+                }
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine($"Antal rånade medborgare: {robberyCount}");
+                Console.WriteLine($"Antal gripna tjuvar: {arrestCount}");
+                Thread.Sleep(1000);
                 Console.Clear();
+               
             }
+           
         }
+        
+
     }
 }
