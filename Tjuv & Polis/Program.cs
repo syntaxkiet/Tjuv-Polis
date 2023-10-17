@@ -8,8 +8,8 @@
         static void Main(string[] args)
         {
 
-            List<People> peopleList = new List<People>();
-            People[,] map = new People[sizeX, sizeY];
+            List<Person> peopleList = new List<Person>();
+            Person[,] map = new Person[sizeX, sizeY];
 
             Random rng = new Random();
 
@@ -31,7 +31,7 @@
                 peopleList.Add(new Civilian());
             }
 
-            foreach (People people in peopleList)
+            foreach (Person people in peopleList)
             {
                 map[people.PosX, people.PosY] = people;
             }

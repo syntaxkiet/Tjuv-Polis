@@ -1,13 +1,13 @@
 ﻿namespace Tjuv___Polis
 {
-    public class People
+    public class Person
     {
         public int PosX { get; set; }
         public int PosY { get; set; }
 
         int direction;
         Random rng;
-        public List<Items> inventory = new List<Items>();
+        public List<Item> inventory = new List<Item>();
 
         public virtual void Move()
         {
@@ -47,7 +47,7 @@
             }
         }
 
-        public People()
+        public Person()
         {
             rng = new Random();
             PosX = rng.Next(0, Program.sizeX);
@@ -55,7 +55,7 @@
         }
     }
 
-    public class Police : People
+    public class Police : Person
     {
         public Police() : base()
         {
@@ -63,7 +63,7 @@
         }
     }
 
-    public class Thief : People
+    public class Thief : Person
     {
         public Thief() : base()
         {
@@ -71,14 +71,14 @@
         }
     }
 
-    public class Civilian : People
+    public class Civilian : Person
     {
         public Civilian() : base()
         {
-            inventory.Add(new Items("Nycklar"));
-            inventory.Add(new Items("Mobil"));
-            inventory.Add(new Items("Pengar"));
-            inventory.Add(new Items("Klocka"));
+            inventory.Add(new Item("Nycklar"));
+            inventory.Add(new Item("Mobil"));
+            inventory.Add(new Item("Pengar"));
+            inventory.Add(new Item("Klocka"));
         }
     }
 

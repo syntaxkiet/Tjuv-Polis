@@ -1,9 +1,9 @@
 ﻿namespace Tjuv___Polis
 {
-    public class Items
+    public class Item
     {
         public string Name { get; }
-        public Items(string itemName)
+        public Item(string itemName)
         {
             Name = itemName;
         }
