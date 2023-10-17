@@ -6,12 +6,12 @@
         {
             Console.WriteLine("Hello my friends!");
             Console.WriteLine("Hej på dig");
-            int SizeX = 80;
-            int SizeY = 80;
+            int sizeX = 80;
+            int sizeY = 80;
 
-            Random rng = new Random();
+            Random rnd = new Random();
 
-            string[,] map = new string[SizeX, SizeY];
+            string[,] map = new string[sizeX, sizeY];
 
 
             Console.ForegroundColor = ConsoleColor.Red;
