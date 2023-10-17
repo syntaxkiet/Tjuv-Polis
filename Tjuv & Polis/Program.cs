@@ -4,31 +4,39 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello my friends!");
-            Console.WriteLine("Hej på dig");
-            int SizeX = 80;
-            int SizeY = 80;
+            int sizeX = 80;
+            int sizeY = 80;
+
+            List<People> peopleList = new List<People>();
+            People[,] map = new People[sizeX, sizeY];
 
             Random rng = new Random();
 
-            string[,] map = new string[SizeX, SizeY];
-
-
-            Console.ForegroundColor = ConsoleColor.Red;
-
-            for (int x = 0; x < map.GetLength(0); x++)              //Här är en for-lopp som visar x - led
+            for (int i = 0; i < 10; i++)
             {
-                for (int y = 0; y < map.GetLength(1); y++)
+                peopleList.Add(new People(rng.Next(80), rng.Next(80)));
+            }
+
+
+
+            Console.BackgroundColor = ConsoleColor.Blue;
+
+            for (int x = 0; x < sizeX; x++)
+            {
+                for (int y = 0; y < sizeY; y++)
                 {
-                    //map[x, y] = "[]";
+                    if (y is People)
+                    {
+                        Console.WriteLine("P");
+                    }
 
-                    Console.Write("[]");
+                    else
+                    {
+                        Console.Write("[]");
+                    }
                 }
-
                 Console.WriteLine();
             }
-            Console.ReadKey();
-
         }
     }
 }
