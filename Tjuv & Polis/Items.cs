@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Tjuv___Polis
+﻿namespace Tjuv___Polis
 {
-    internal class Items
+    public class Items
     {
         public string Name { get; }
-        public Items(string itemName) { 
-        
-           Name = itemName;
-        
+        public Items(string itemName)
+        {
+            Name = itemName;
         }
     }
 }
