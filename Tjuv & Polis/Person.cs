@@ -51,40 +51,40 @@
 
         public void CheckOutOfBounds()
         {
-            if (PosX == 0 && PosY == 0)
+            if (PosX < 0 && PosY < 0)
             {
                 PosY = Program.sizeY - 1;
                 PosX = Program.sizeX - 1;
             }
-            if (PosX == Program.sizeX - 1 && PosY == Program.sizeY - 1)
+            else if (PosX > Program.sizeX - 1 && PosY > Program.sizeY - 1)
             {
                 PosY = 0;
                 PosX = 0;
             }
-            if(PosX == Program.sizeX - 1 && PosY == 0)
+            else if(PosX > Program.sizeX - 1 && PosY < 0)
             {
                 PosX = 0;
                 PosY = Program.sizeY - 1;
             }
-            if(PosX == 0 && PosY == Program.sizeY - 1)
+            else if(PosX < 0 && PosY > Program.sizeY - 1)
             {
                 PosX = Program.sizeX - 1;
                 PosY = 0;
             }
 
-            else if (PosX == Program.sizeX - 1)
+            else if (PosX > Program.sizeX - 1)
             {
                 PosX = 0;
             }
-            else if (PosX == 0)
+            else if (PosX < 0)
             {
                 PosX = Program.sizeX - 1;
             }
-            else if (PosY == Program.sizeY - 1)
+            else if (PosY > Program.sizeY - 1)
             {
                 PosY = 0;
             }
-            else if (PosY == 0)
+            else if (PosY < 0)
             {
                 PosY = Program.sizeY - 1;
             }

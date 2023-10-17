@@ -35,6 +35,7 @@
 
             while (true)
             {
+                Array.Clear(map);
                 foreach (Person people in peopleList)
                 {
                     map[people.PosX, people.PosY] = people;
