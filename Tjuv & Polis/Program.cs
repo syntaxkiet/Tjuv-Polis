@@ -2,20 +2,24 @@
 {
     internal class Program
     {
-        public static int sizeX = 100;
-        public static int sizeY = 25;
+        public static int citySizeX = 100;
+        public static int citySizeY = 25;
+        public static int prisonSize = 10;
         public static int robberyCount = 0;
         public static int arrestCount = 0;
 
         static void Main(string[] args)
         {
+            //Create list of prisoners
+            List<Person> prisonList = new List<Person>();
 
+            //Create list of people
             List<Person> peopleList = new List<Person>();
-            Person[,] map = new Person[sizeX, sizeY];
 
-            Random rng = new Random();
+            //Create city map (matrix)
+            Person[,] map = new Person[citySizeX, citySizeY];
 
-            //Add 20 Policemen
+            //Add 10 Policemen
             for (int i = 0; i < 10; i++)
             {
                 peopleList.Add(new Police());
@@ -33,15 +37,18 @@
                 peopleList.Add(new Civilian());
             }
 
-
-
+            //Main loop
             while (true)
-            {
+            {   //Erase previous position of people
                 Array.Clear(map);
+
+                //Add each person's position into the map
                 foreach (Person people in peopleList)
                 {
                     map[people.PosX, people.PosY] = people;
                 }
+
+                //Print map of city and people
                 for (int y = 0; y < map.GetLength(1); y++)
                 {
                     for (int x = 0; x < map.GetLength(0); x++)
@@ -69,13 +76,26 @@
                     Console.WriteLine();
                 }
 
+                //Print prison
+                Console.WriteLine();
+                for (int i = 0; i < prisonSize; i++)
+                {
+                    for (int j = 0; j < prisonSize; j++)
+                    {
+                        Console.Write("*");
+                    }
+                    Console.WriteLine();
+                }
+
+                //Move people around
                 foreach (Person person in peopleList)
                 {
                     person.Move();
                 }
 
-
                 Console.WriteLine();
+
+                //Compares people's coordinates to initiate action if needed
                 for (int i = 0; i < peopleList.Count; i++)
                 {
                     for (int y = 0; y < peopleList.Count; y++)
@@ -86,16 +106,17 @@
                         }
                     }
                 }
+
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine($"Antal rånade medborgare: {robberyCount}");
                 Console.WriteLine($"Antal gripna tjuvar: {arrestCount}");
                 Thread.Sleep(1000);
                 Console.Clear();
-               
+
             }
-           
+
         }
-        
+
 
     }
 }
