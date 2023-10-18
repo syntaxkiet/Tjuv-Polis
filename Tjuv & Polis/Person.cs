@@ -2,22 +2,23 @@
 {
     public class Person
     {
-        public int PosX { get; set; }
+        public int PosX { get; set; }       
+        //Initiate X and Y positions
         public int PosY { get; set; }
 
-        int direction;
-        Random rng;
+        int direction;          //Declares an int called direction. 
+        Random rng;              
 
         public void Move()
         {
             rng = new Random();
-            direction = rng.Next(0, 8);
+            direction = rng.Next(0, 8);         //Gives a random number between 0-7 to initiate a move
 
 
-            switch (direction)
+            switch (direction)                 //Switches direction according to the random number generated. 
             {
                 case 0:
-                    PosY++;
+                    PosY++;                     
                     break;
                 case 1:
                     PosY++;
@@ -48,7 +49,7 @@
             CheckOutOfBounds();
         }
 
-        public void CheckOutOfBounds()
+        public void CheckOutOfBounds()                                      //Check if person if out of bound and replace positon to other end. 
         {
             if (PosX < 0 && PosY < 0)
             {
@@ -91,33 +92,33 @@
 
         public virtual void Action(Person person)
         {
-            Console.WriteLine("Person gör någonting");
+            Console.WriteLine("Person gör någonting");          //Base virtual method 
         }
 
         public Person()
         {
             rng = new Random();
-            PosX = rng.Next(0, Program.citySizeX);
+            PosX = rng.Next(0, Program.citySizeX);          //Gives start positon to each person (X,Y)
             PosY = rng.Next(0, Program.citySizeY);
         }
     }
 
     public class Police : Person
     {
-        public List<Item> Confiscated { get; set; }
+        public List<Item> Confiscated { get; set; }                     //List that holds the thiefs stolen goods when caught. Empty from the start. 
         public Police() : base()
         {
-            Confiscated = new List<Item>();
+            Confiscated = new List<Item>();                            //Constructor
         }
         public override void Action(Person person)
-        {
-            if (person is Thief && (((Thief)person).Loot.Count > 0))
+        {   
+            if (person is Thief && (((Thief)person).Loot.Count > 0))                    //If person is thief and the thiefs lootcount is bigger than zero
             {
 
                 Program.arrestCount++;
 
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("Polisen slår till mot tjuven och beslagtar hans samtliga byten");
+                Console.WriteLine("Polisen slår till mot tjuven och beslagtar hans samtliga byten");                //Police takes action and sends thief to jail. Thief inv resets. 
                 Confiscated = Enumerable.Concat(Confiscated, ((Thief)person).Loot).ToList();
                 (((Thief)person).Loot).Clear();
                 Thread.Sleep(2000);
@@ -130,7 +131,7 @@
 
     public class Thief : Person
     {
-        public List<Item> Loot { get; set; }
+        public List<Item> Loot { get; set; }                            
         public Thief() : base()
         {
             Loot = new List<Item>();
@@ -145,7 +146,7 @@
                 int index = rng.Next(0, ((Civilian)person).Possessions.Count);
                 Loot.Add((((Civilian)person).Possessions[index]));
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("Tjuv råna medborgare på " + (((Civilian)person).Possessions[index].Name));
+                Console.WriteLine("Tjuv råna medborgare på " + (((Civilian)person).Possessions[index].Name));           //Thief takes 1 of civilians belongings and adds to his stolen goods. 
                 ((Civilian)person).Possessions.RemoveAt(index);
                 Thread.Sleep(2000);
                 Move();
@@ -159,10 +160,10 @@
         public List<Item> Possessions { get; set; }
         public Civilian() : base()
         {
-            Possessions = new List<Item>();
+            Possessions = new List<Item>();                     //List of things. 
             Possessions.Add(new Item("Nycklar"));
             Possessions.Add(new Item("Mobil"));
-            Possessions.Add(new Item("Pengar"));
+            Possessions.Add(new Item("Pengar"));                    //Each civilian has these 5 following things. 
             Possessions.Add(new Item("Klocka"));
         }
 
@@ -170,7 +171,7 @@
         {
             if (person is Police || person is Civilian)
             {
-                Move();
+                Move();                                     
                 person.Move();
             }
 

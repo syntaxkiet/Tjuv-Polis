@@ -49,6 +49,13 @@
                 }
 
                 //Print map of city and people
+                Console.WriteLine("City");
+                for (int i = 0; i < citySizeX; i++)
+                {
+                    Console.Write("-");
+                }
+                Console.WriteLine();
+
                 for (int y = 0; y < map.GetLength(1); y++)
                 {
                     for (int x = 0; x < map.GetLength(0); x++)
@@ -74,19 +81,37 @@
                         }
                     }
                     Console.WriteLine();
+                   
                 }
-
+                for (int i = 0; i < citySizeX; i++)
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write("-");
+                }
+                Console.WriteLine();
                 //Print prison
                 Console.WriteLine();
+
+                Console.WriteLine("Prison");
+                for (int i = 0; i < prisonSize; i++)
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write("-");
+                }
+               
                 for (int i = 0; i < prisonSize; i++)
                 {
                     for (int j = 0; j < prisonSize; j++)
                     {
-                        Console.Write("*");
+                        Console.Write(" ");
                     }
                     Console.WriteLine();
                 }
-
+                for (int i = 0; i < prisonSize; i++)
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write("-");
+                }
                 //Move people around
                 foreach (Person person in peopleList)
                 {
