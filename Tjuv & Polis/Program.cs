@@ -70,9 +70,9 @@
 
                     //Print map of city and people
                     Console.WriteLine("City");
-                    for (int i = 0; i <= citySizeX; i++)
+                    for (int i = 0; i < citySizeX; i++)
                     {
-                        Console.Write("-");
+                        Console.Write("_");
                     }
                     Console.WriteLine();
 
@@ -109,7 +109,7 @@
                     for (int i = 0; i < citySizeX; i++)
                     {
                         Console.ForegroundColor = ConsoleColor.White;
-                        Console.Write("-");
+                        Console.Write("_");
                     }
                     Console.WriteLine();
                     //Print prison
@@ -122,9 +122,9 @@
                     }
 
                     Console.WriteLine("Prison");
-                    for (int i = 0; i <= prisonSize; i++)
+                    for (int i = 0; i < prisonSize; i++)
                     {
-                        Console.Write("-");
+                        Console.Write("_");
                     }
                     Console.WriteLine();
 
@@ -146,23 +146,30 @@
                     }
                     for (int i = 0; i < prisonSize; i++)
                     {
-                        Console.Write("-");
+                        Console.Write("_");
                     }
                     Console.WriteLine();
                 }
 
-                //Move people around the city
-                foreach (Person person in personList)
+                //Move people around the prison
+                for (int i = 0; i < prisonList.Count; i++)
                 {
-                    person.Move();
+                    prisonList[i].Move();
                 }
 
                 //Move people around the prison
-                foreach (Person person in prisonList)
+                for (int i = 0; i < personList.Count; i++)
                 {
-                    person.Move();
-
+                    personList[i].Move();
                 }
+
+                ////Move people around the city
+                //foreach (Person person in personList)
+                //{
+                //    person.Move();
+                //}
+
+
 
                 //if (!showMap)
                 //{
