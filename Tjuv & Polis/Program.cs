@@ -7,6 +7,7 @@
         public static int prisonSize = 10;
         public static int robberyCount = 0;
         public static int arrestCount = 0;
+
         //Create list of prisoners
         public static List<Person> prisonList = new List<Person>();
 
@@ -14,8 +15,6 @@
         public static List<Person> personList = new List<Person>();
         static void Main(string[] args)
         {
-
-
             //Create city map (matrix)
             Person[,] cityMap = new Person[citySizeX, citySizeY];
             //Create prison map (matrix)
@@ -40,13 +39,13 @@
             }
             bool showMap = true;
 
-
-
             //Main loop
             while (true)
-            {   //Erase previous position of people
+            {
+                //Erase previous position of people
                 Array.Clear(cityMap);
                 Array.Clear(prisonMap);
+
                 //if (Console.KeyAvailable)
                 //{
                 //    ConsoleKeyInfo key = Console.ReadKey(true);
@@ -64,13 +63,11 @@
                     cityMap[people.PosX, people.PosY] = people;
                 }
 
-
                 if (showMap)
                 {
-
                     //Print map of city and people
                     Console.WriteLine("City");
-                    for (int i = 0; i < citySizeX; i++)
+                    for (int i = 0; i <= citySizeX; i++)
                     {
                         Console.Write("_");
                     }
@@ -101,18 +98,15 @@
                             }
                         }
                         Console.WriteLine();
-
                     }
 
-
-
-                    for (int i = 0; i < citySizeX; i++)
+                    for (int i = 0; i <= citySizeX; i++)
                     {
                         Console.ForegroundColor = ConsoleColor.White;
                         Console.Write("_");
                     }
                     Console.WriteLine();
-                    //Print prison
+
                     Console.WriteLine();
 
                     //Add each person's position into the prison map
@@ -121,8 +115,9 @@
                         prisonMap[people.PosX, people.PosY] = people;
                     }
 
+                    //Print prison
                     Console.WriteLine("Prison");
-                    for (int i = 0; i < prisonSize; i++)
+                    for (int i = 0; i <= prisonSize; i++)
                     {
                         Console.Write("_");
                     }
@@ -144,7 +139,7 @@
                         }
                         Console.WriteLine();
                     }
-                    for (int i = 0; i < prisonSize; i++)
+                    for (int i = 0; i <= prisonSize; i++)
                     {
                         Console.Write("_");
                     }
@@ -168,8 +163,6 @@
                 //{
                 //    person.Move();
                 //}
-
-
 
                 //if (!showMap)
                 //{
@@ -199,11 +192,7 @@
                 Console.WriteLine($"Antal gripna tjuvar: {arrestCount}");
                 Thread.Sleep(1000);
                 Console.Clear();
-
             }
-
         }
-
-
     }
 }

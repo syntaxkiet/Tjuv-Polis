@@ -70,7 +70,7 @@
             }
             else
             {
-                CheckOutOfBounds();
+                CheckOutOfBoundsCity();
             }
         }
 
@@ -114,7 +114,7 @@
 
         }
 
-        public void CheckOutOfBounds()                                      //Check if person if out of bound and replace positon to other end. 
+        public void CheckOutOfBoundsCity()                                      //Check if person if out of bound and replace positon to other end. 
         {
             if (PosX < 0 && PosY < 0)
             {
@@ -209,96 +209,8 @@
         }
     }
 
-    public class Police : Person
-    {
-        public List<Item> Confiscated { get; set; }                     //List that holds the thiefs stolen goods when caught. Empty from the start. 
-        public Police() : base()
-        {
-            Confiscated = new List<Item>();                            //Constructor
-        }
-        public override void Action(Person person)
-        {
-            if (person is Thief && (((Thief)person).Loot.Count > 0))                    //If person is thief and the thiefs lootcount is bigger than zero
-            {
-                Program.arrestCount++;
-
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("Polisen slår till mot tjuven och beslagtar hans samtliga byten");                //Police takes action and sends thief to jail. Thief inv resets. 
-                //Confiscated = Enumerable.Concat(Confiscated, ((Thief)person).Loot).ToList();
-                Confiscated.AddRange(((Thief)person).Loot);
-                (((Thief)person).SentenceTime) = (((Thief)person).Loot.Count) * 10;
-                (((Thief)person).Loot).Clear();
-                Random rng = new Random();
-                person.PosX = rng.Next(0, Program.prisonSize);
-                person.PosY = rng.Next(0, Program.prisonSize);
-                Program.prisonList.Add(person);
-                Program.personList.Remove(person);
-                Thread.Sleep(2000);
-                //Move();
-                //person.Move();
-            }
-            else
-            {
-                Move();
-                person.Move();
-            }
-        }
-    }
-
-    public class Thief : Person
-    {
-        public int SentenceTime { get; set; }
-        public List<Item> Loot { get; set; }
-        public Thief() : base()
-        {
-            Loot = new List<Item>();
-            SentenceTime = 0;
-        }
-        public override void Action(Person person)
-        {
-            if (person is Civilian && ((Civilian)person).Possessions.Count > 0)
-            {
-                Program.robberyCount++;
-                Random rng = new Random();
-                int index = rng.Next(0, ((Civilian)person).Possessions.Count);
-                Loot.Add((((Civilian)person).Possessions[index]));
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("Tjuv rånar medborgare på " + (((Civilian)person).Possessions[index].Name));           //Thief takes 1 of civilians belongings and adds to his stolen goods. 
-                ((Civilian)person).Possessions.RemoveAt(index);
-                Thread.Sleep(2000);
-                Move();
-                person.Move();
-            }
-            else
-            {
-                Move();
-                person.Move();
-            }
-        }
-    }
-
-    public class Civilian : Person
-    {
-        public List<Item> Possessions { get; set; }
-        public Civilian() : base()
-        {
-            Possessions = new List<Item>();                     //List of things. 
-            Possessions.Add(new Item("Nycklar"));
-            Possessions.Add(new Item("Mobil"));
-            Possessions.Add(new Item("Pengar"));                    //Each civilian has these 5 following things. 
-            Possessions.Add(new Item("Klocka"));
-        }
-
-        public override void Action(Person person)
-        {
-            if (person is Police || person is Civilian)
-            {
-                Move();
-                person.Move();
-            }
 
 
-        }
-    }
+
 
 }
