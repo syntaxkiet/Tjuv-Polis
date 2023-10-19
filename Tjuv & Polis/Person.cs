@@ -58,9 +58,9 @@
             CheckOutOfBounds();
         }
 
-        public void GetInfo(Person person)
+        public void GetInfo()
         {
-            switch (person)
+            switch (this)
             {
                 case Civilian:
                     Console.WriteLine("Medborgare");
@@ -144,7 +144,8 @@
 
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("Polisen slår till mot tjuven och beslagtar hans samtliga byten");                //Police takes action and sends thief to jail. Thief inv resets. 
-                Confiscated = Enumerable.Concat(Confiscated, ((Thief)person).Loot).ToList();
+                //Confiscated = Enumerable.Concat(Confiscated, ((Thief)person).Loot).ToList();
+                Confiscated.AddRange(((Thief)person).Loot);
                 (((Thief)person).Loot).Clear();
                 Thread.Sleep(2000);
                 Move();
@@ -171,7 +172,7 @@
                 int index = rng.Next(0, ((Civilian)person).Possessions.Count);
                 Loot.Add((((Civilian)person).Possessions[index]));
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("Tjuv råna medborgare på " + (((Civilian)person).Possessions[index].Name));           //Thief takes 1 of civilians belongings and adds to his stolen goods. 
+                Console.WriteLine("Tjuv rånar medborgare på " + (((Civilian)person).Possessions[index].Name));           //Thief takes 1 of civilians belongings and adds to his stolen goods. 
                 ((Civilian)person).Possessions.RemoveAt(index);
                 Thread.Sleep(2000);
                 Move();

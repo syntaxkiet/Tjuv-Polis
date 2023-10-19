@@ -44,16 +44,16 @@
             while (true)
             {   //Erase previous position of people
                 Array.Clear(map);
-                if (Console.KeyAvailable)
-                {
-                    ConsoleKeyInfo key = Console.ReadKey(true);
-                    if (key.KeyChar == 'm')
-                        showMap = true;
-                    Console.Clear();
-                    if (key.KeyChar == 'i')
-                        showMap = false;
-                    Console.Clear();
-                }
+                //if (Console.KeyAvailable)
+                //{
+                //    ConsoleKeyInfo key = Console.ReadKey(true);
+                //    if (key.KeyChar == 'm')
+                //        showMap = true;
+                //    Console.Clear();
+                //    if (key.KeyChar == 'i')
+                //        showMap = false;
+                //    Console.Clear();
+                //}
                 
                 //Add each person's position into the map
                 foreach (Person people in peopleList)
@@ -132,7 +132,7 @@
 
                 }
 
-                
+      
 
                 //Move people around
                 foreach (Person person in peopleList)
@@ -145,7 +145,7 @@
                 {
                     foreach (Person person in peopleList)
                     {
-                        person.GetInfo(person);
+                        person.GetInfo();
                     }
                 }
 
