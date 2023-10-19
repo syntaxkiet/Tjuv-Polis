@@ -49,13 +49,29 @@
                         directionX = -1;
                         break;
                 }
-
             }
 
             PosX = PosX + directionX;
             PosY = PosY + directionY;
             directionCooldown--;
-            CheckOutOfBounds();
+
+            if (Program.prisonList.Contains(this))
+            {
+                (((Thief)this).SentenceTime)--;
+                CheckOutOfBoundsPrison();
+                if ((((Thief)this).SentenceTime) == 0)
+                {
+                    Random rng = new Random();
+                    this.PosX = rng.Next(0, Program.citySizeX);
+                    this.PosY = rng.Next(0, Program.citySizeY);
+                    Program.personList.Add(this);
+                    Program.prisonList.Remove(this);
+                }
+            }
+            else
+            {
+                CheckOutOfBounds();
+            }
         }
 
         public void GetInfo()
@@ -139,6 +155,47 @@
             }
         }
 
+        public void CheckOutOfBoundsPrison()                                      //Check if person if out of bound and replace positon to other end. 
+        {
+            if (PosX < 0 && PosY < 0)
+            {
+                PosY = Program.prisonSize - 1;
+                PosX = Program.prisonSize - 1;
+            }
+            else if (PosX > Program.prisonSize - 1 && PosY > Program.prisonSize - 1)
+            {
+                PosY = 0;
+                PosX = 0;
+            }
+            else if (PosX > Program.prisonSize - 1 && PosY < 0)
+            {
+                PosX = 0;
+                PosY = Program.prisonSize - 1;
+            }
+            else if (PosX < 0 && PosY > Program.prisonSize - 1)
+            {
+                PosX = Program.prisonSize - 1;
+                PosY = 0;
+            }
+
+            else if (PosX > Program.prisonSize - 1)
+            {
+                PosX = 0;
+            }
+            else if (PosX < 0)
+            {
+                PosX = Program.prisonSize - 1;
+            }
+            else if (PosY > Program.prisonSize - 1)
+            {
+                PosY = 0;
+            }
+            else if (PosY < 0)
+            {
+                PosY = Program.prisonSize - 1;
+            }
+        }
+
         public virtual void Action(Person person)
         {
             Console.WriteLine("Person gör någonting");          //Base virtual method 
@@ -169,10 +226,16 @@
                 Console.WriteLine("Polisen slår till mot tjuven och beslagtar hans samtliga byten");                //Police takes action and sends thief to jail. Thief inv resets. 
                 //Confiscated = Enumerable.Concat(Confiscated, ((Thief)person).Loot).ToList();
                 Confiscated.AddRange(((Thief)person).Loot);
+                (((Thief)person).SentenceTime) = (((Thief)person).Loot.Count) * 10;
                 (((Thief)person).Loot).Clear();
+                Random rng = new Random();
+                person.PosX = rng.Next(0, Program.prisonSize);
+                person.PosY = rng.Next(0, Program.prisonSize);
+                Program.prisonList.Add(person);
+                Program.personList.Remove(person);
                 Thread.Sleep(2000);
-                Move();
-                person.Move();
+                //Move();
+                //person.Move();
             }
             else
             {
@@ -184,10 +247,12 @@
 
     public class Thief : Person
     {
+        public int SentenceTime { get; set; }
         public List<Item> Loot { get; set; }
         public Thief() : base()
         {
             Loot = new List<Item>();
+            SentenceTime = 0;
         }
         public override void Action(Person person)
         {

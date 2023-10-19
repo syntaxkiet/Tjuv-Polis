@@ -7,34 +7,36 @@
         public static int prisonSize = 10;
         public static int robberyCount = 0;
         public static int arrestCount = 0;
+        //Create list of prisoners
+        public static List<Person> prisonList = new List<Person>();
 
+        //Create list of people
+        public static List<Person> personList = new List<Person>();
         static void Main(string[] args)
         {
-            //Create list of prisoners
-            List<Person> prisonList = new List<Person>();
 
-            //Create list of people
-            List<Person> peopleList = new List<Person>();
 
             //Create city map (matrix)
-            Person[,] map = new Person[citySizeX, citySizeY];
+            Person[,] cityMap = new Person[citySizeX, citySizeY];
+            //Create prison map (matrix)
+            Person[,] prisonMap = new Person[prisonSize, prisonSize];
 
             //Add 10 Policemen
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 20; i++)
             {
-                peopleList.Add(new Police());
+                personList.Add(new Police());
             }
 
             //Add 20 Thieves
             for (int i = 0; i < 20; i++)
             {
-                peopleList.Add(new Thief());
+                personList.Add(new Thief());
             }
 
             //Add 30 Civilians
             for (int i = 0; i < 30; i++)
             {
-                peopleList.Add(new Civilian());
+                personList.Add(new Civilian());
             }
             bool showMap = true;
 
@@ -43,7 +45,8 @@
             //Main loop
             while (true)
             {   //Erase previous position of people
-                Array.Clear(map);
+                Array.Clear(cityMap);
+                Array.Clear(prisonMap);
                 //if (Console.KeyAvailable)
                 //{
                 //    ConsoleKeyInfo key = Console.ReadKey(true);
@@ -55,10 +58,10 @@
                 //    Console.Clear();
                 //}
 
-                //Add each person's position into the map
-                foreach (Person people in peopleList)
+                //Add each person's position into the city map
+                foreach (Person people in personList)
                 {
-                    map[people.PosX, people.PosY] = people;
+                    cityMap[people.PosX, people.PosY] = people;
                 }
 
 
@@ -67,27 +70,27 @@
 
                     //Print map of city and people
                     Console.WriteLine("City");
-                    for (int i = 0; i < citySizeX; i++)
+                    for (int i = 0; i <= citySizeX; i++)
                     {
                         Console.Write("-");
                     }
                     Console.WriteLine();
 
-                    for (int y = 0; y < map.GetLength(1); y++)
+                    for (int y = 0; y < cityMap.GetLength(1); y++)
                     {
-                        for (int x = 0; x < map.GetLength(0); x++)
+                        for (int x = 0; x < cityMap.GetLength(0); x++)
                         {
-                            if (map[x, y] is Police)
+                            if (cityMap[x, y] is Police)
                             {
                                 Console.ForegroundColor = ConsoleColor.Blue;
                                 Console.Write("P");
                             }
-                            if (map[x, y] is Thief)
+                            if (cityMap[x, y] is Thief)
                             {
                                 Console.ForegroundColor = ConsoleColor.Red;
                                 Console.Write("T");
                             }
-                            if (map[x, y] is Civilian)
+                            if (cityMap[x, y] is Civilian)
                             {
                                 Console.ForegroundColor = ConsoleColor.White;
                                 Console.Write("M");
@@ -100,6 +103,9 @@
                         Console.WriteLine();
 
                     }
+
+
+
                     for (int i = 0; i < citySizeX; i++)
                     {
                         Console.ForegroundColor = ConsoleColor.White;
@@ -109,37 +115,54 @@
                     //Print prison
                     Console.WriteLine();
 
-                    Console.WriteLine("Prison");
-                    for (int i = 0; i < prisonSize; i++)
+                    //Add each person's position into the prison map
+                    foreach (Person people in prisonList)
                     {
-                        Console.ForegroundColor = ConsoleColor.White;
-                        Console.Write("-");
+                        prisonMap[people.PosX, people.PosY] = people;
                     }
 
-                    for (int i = 0; i < prisonSize; i++)
+                    Console.WriteLine("Prison");
+                    for (int i = 0; i <= prisonSize; i++)
                     {
-                        for (int j = 0; j < prisonSize; j++)
+                        Console.Write("-");
+                    }
+                    Console.WriteLine();
+
+                    for (int y = 0; y < prisonMap.GetLength(1); y++)
+                    {
+                        for (int x = 0; x < prisonMap.GetLength(0); x++)
                         {
-                            Console.Write(" ");
+                            if (prisonMap[x, y] is Thief)
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.Write("T");
+                            }
+                            else
+                            {
+                                Console.Write(" ");
+                            }
                         }
                         Console.WriteLine();
                     }
                     for (int i = 0; i < prisonSize; i++)
                     {
-                        Console.ForegroundColor = ConsoleColor.White;
                         Console.Write("-");
                     }
                     Console.WriteLine();
                 }
 
-
-
-                //Move people around
-                foreach (Person person in peopleList)
+                //Move people around the city
+                foreach (Person person in personList)
                 {
                     person.Move();
                 }
 
+                //Move people around the prison
+                foreach (Person person in prisonList)
+                {
+                    person.Move();
+
+                }
 
                 //if (!showMap)
                 //{
@@ -153,13 +176,13 @@
                 Console.WriteLine();
 
                 //Compares people's coordinates to initiate action if needed
-                for (int i = 0; i < peopleList.Count; i++)
+                for (int i = 0; i < personList.Count; i++)
                 {
-                    for (int y = 0; y < peopleList.Count; y++)
+                    for (int y = 0; y < personList.Count; y++)
                     {
-                        if (peopleList[i].PosY == peopleList[y].PosY && peopleList[i].PosX == peopleList[y].PosX && peopleList[i] != peopleList[y])
+                        if (personList[i].PosY == personList[y].PosY && personList[i].PosX == personList[y].PosX && personList[i] != personList[y])
                         {
-                            peopleList[i].Action(peopleList[y]);
+                            personList[i].Action(personList[y]);
                         }
                     }
                 }
