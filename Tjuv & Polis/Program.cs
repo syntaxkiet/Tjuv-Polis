@@ -36,17 +36,31 @@
             {
                 peopleList.Add(new Civilian());
             }
+            bool showMap = true;
+
+            
 
             //Main loop
             while (true)
             {   //Erase previous position of people
                 Array.Clear(map);
+                ConsoleKeyInfo key = Console.ReadKey(true);
+                if (key.KeyChar == 'm')
+                    showMap = true;
+                if (key.KeyChar == 'i')
+                    showMap = false;
+
+
 
                 //Add each person's position into the map
                 foreach (Person people in peopleList)
                 {
                     map[people.PosX, people.PosY] = people;
                 }
+
+
+                if (showMap)
+                {
 
                 //Print map of city and people
                 Console.WriteLine("City");
@@ -112,13 +126,27 @@
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.Write("-");
                 }
+
+                }
+
+                
+
                 //Move people around
                 foreach (Person person in peopleList)
                 {
                     person.Move();
                 }
 
-                Console.WriteLine();
+
+                if (!showMap)
+                {
+                    foreach (Person person in peopleList)
+                    {
+                        person.GetInfo(person);
+                    }
+                }
+
+                    Console.WriteLine();
 
                 //Compares people's coordinates to initiate action if needed
                 for (int i = 0; i < peopleList.Count; i++)

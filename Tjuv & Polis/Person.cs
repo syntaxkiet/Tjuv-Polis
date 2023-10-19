@@ -2,51 +2,76 @@
 {
     public class Person
     {
-        public int PosX { get; set; }       
-        //Initiate X and Y positions
+        public int PosX { get; set; }
         public int PosY { get; set; }
-
-        int direction;          //Declares an int called direction. 
-        Random rng;              
+        public int directionX, directionY;
+        int directionCooldown = 0;
+        Random rng;
 
         public void Move()
         {
             rng = new Random();
-            direction = rng.Next(0, 8);         //Gives a random number between 0-7 to initiate a move
 
-
-            switch (direction)                 //Switches direction according to the random number generated. 
+            if (directionCooldown == 0)
             {
-                case 0:
-                    PosY++;                     
+                directionX = 0;
+                directionY = 0;
+                int movement = rng.Next(0, 8);
+                directionCooldown = 10;
+                switch (movement)
+                {
+                    case 0:
+                        directionY = 1;
+                        break;
+                    case 1:
+                        directionY = 1;
+                        directionX = 1;
+                        break;
+                    case 2:
+                        directionX = 1;
+                        break;
+                    case 3:
+                        directionY = -1;
+                        directionX = 1;
+                        break;
+                    case 4:
+                        directionY = -1;
+                        break;
+                    case 5:
+                        directionY = -1;
+                        directionX = -1;
+                        break;
+                    case 6:
+                        directionX = -1;
+                        break;
+                    case 7:
+                        directionY = 1;
+                        directionX = -1;
+                        break;
+                }
+
+            }
+
+            PosX = PosX + directionX;
+            PosY = PosY + directionY;
+            directionCooldown--;
+            CheckOutOfBounds();
+        }
+
+        public void GetInfo(Person person)
+        {
+            switch (person)
+            {
+                case Civilian:
+                    Console.WriteLine("Medborgare");
                     break;
-                case 1:
-                    PosY++;
-                    PosX++;
+                case Police:
+                    Console.WriteLine("Polis");
                     break;
-                case 2:
-                    PosX++;
-                    break;
-                case 3:
-                    PosY--;
-                    PosX++;
-                    break;
-                case 4:
-                    PosY--;
-                    break;
-                case 5:
-                    PosY--;
-                    PosX--;
-                    break;
-                case 6:
-                    PosX--;
-                    break;
-                case 7:
-                    PosY++;
-                    PosX--;
+                case Thief:
+                    Console.WriteLine("Tjuv");
                     break;
             }
-            CheckOutOfBounds();
         }
 
         public void CheckOutOfBounds()                                      //Check if person if out of bound and replace positon to other end. 
