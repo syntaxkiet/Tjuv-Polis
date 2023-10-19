@@ -7,7 +7,7 @@
         public static int prisonSize = 10;
         public static int robberyCount = 0;
         public static int arrestCount = 0;
-        int test = 0; 
+       
 
         static void Main(string[] args)
         {
@@ -21,19 +21,19 @@
             Person[,] map = new Person[citySizeX, citySizeY];
 
             //Add 10 Policemen
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 10; i++)
             {
                 peopleList.Add(new Police());
             }
 
             //Add 20 Thieves
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 20; i++)
             {
                 peopleList.Add(new Thief());
             }
 
             //Add 30 Civilians
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 30; i++)
             {
                 peopleList.Add(new Civilian());
             }
