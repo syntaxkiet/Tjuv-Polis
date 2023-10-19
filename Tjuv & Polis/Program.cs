@@ -141,6 +141,7 @@
                     }
                     for (int i = 0; i <= prisonSize; i++)
                     {
+                        Console.ForegroundColor = ConsoleColor.White;
                         Console.Write("_");
                     }
                     Console.WriteLine();
