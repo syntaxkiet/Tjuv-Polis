@@ -7,6 +7,7 @@
         public static int prisonSize = 10;
         public static int robberyCount = 0;
         public static int arrestCount = 0;
+        int test = 0; 
 
         static void Main(string[] args)
         {
