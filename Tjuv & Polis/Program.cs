@@ -38,7 +38,7 @@
             }
             bool showMap = true;
 
-            
+
 
             //Main loop
             while (true)
@@ -54,7 +54,7 @@
                 //        showMap = false;
                 //    Console.Clear();
                 //}
-                
+
                 //Add each person's position into the map
                 foreach (Person people in peopleList)
                 {
@@ -65,74 +65,74 @@
                 if (showMap)
                 {
 
-                //Print map of city and people
-                Console.WriteLine("City");
-                for (int i = 0; i < citySizeX; i++)
-                {
-                    Console.Write("-");
-                }
-                Console.WriteLine();
-
-                for (int y = 0; y < map.GetLength(1); y++)
-                {
-                    for (int x = 0; x < map.GetLength(0); x++)
+                    //Print map of city and people
+                    Console.WriteLine("City");
+                    for (int i = 0; i < citySizeX; i++)
                     {
-                        if (map[x, y] is Police)
+                        Console.Write("-");
+                    }
+                    Console.WriteLine();
+
+                    for (int y = 0; y < map.GetLength(1); y++)
+                    {
+                        for (int x = 0; x < map.GetLength(0); x++)
                         {
-                            Console.ForegroundColor = ConsoleColor.Blue;
-                            Console.Write("P");
+                            if (map[x, y] is Police)
+                            {
+                                Console.ForegroundColor = ConsoleColor.Blue;
+                                Console.Write("P");
+                            }
+                            if (map[x, y] is Thief)
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.Write("T");
+                            }
+                            if (map[x, y] is Civilian)
+                            {
+                                Console.ForegroundColor = ConsoleColor.White;
+                                Console.Write("M");
+                            }
+                            else
+                            {
+                                Console.Write(" ");
+                            }
                         }
-                        if (map[x, y] is Thief)
-                        {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.Write("T");
-                        }
-                        if (map[x, y] is Civilian)
-                        {
-                            Console.ForegroundColor = ConsoleColor.White;
-                            Console.Write("M");
-                        }
-                        else
+                        Console.WriteLine();
+
+                    }
+                    for (int i = 0; i < citySizeX; i++)
+                    {
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.Write("-");
+                    }
+                    Console.WriteLine();
+                    //Print prison
+                    Console.WriteLine();
+
+                    Console.WriteLine("Prison");
+                    for (int i = 0; i < prisonSize; i++)
+                    {
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.Write("-");
+                    }
+
+                    for (int i = 0; i < prisonSize; i++)
+                    {
+                        for (int j = 0; j < prisonSize; j++)
                         {
                             Console.Write(" ");
                         }
+                        Console.WriteLine();
                     }
-                    Console.WriteLine();
-                   
-                }
-                for (int i = 0; i < citySizeX; i++)
-                {
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.Write("-");
-                }
-                Console.WriteLine();
-                //Print prison
-                Console.WriteLine();
-
-                Console.WriteLine("Prison");
-                for (int i = 0; i < prisonSize; i++)
-                {
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.Write("-");
-                }
-               
-                for (int i = 0; i < prisonSize; i++)
-                {
-                    for (int j = 0; j < prisonSize; j++)
+                    for (int i = 0; i < prisonSize; i++)
                     {
-                        Console.Write(" ");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.Write("-");
                     }
                     Console.WriteLine();
                 }
-                for (int i = 0; i < prisonSize; i++)
-                {
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.Write("-");
-                }
 
-                }
 
-      
 
                 //Move people around
                 foreach (Person person in peopleList)
@@ -141,15 +141,16 @@
                 }
 
 
-                if (!showMap)
-                {
-                    foreach (Person person in peopleList)
-                    {
-                        person.GetInfo();
-                    }
-                }
+                //if (!showMap)
+                //{
+                //for (int i = 0; i < peopleList.Count; i++)
+                //{
+                //    Console.Write("Person " + (i + 1) + " ");
+                //    peopleList[i].GetInfo();
+                //}
+                //}
 
-                    Console.WriteLine();
+                Console.WriteLine();
 
                 //Compares people's coordinates to initiate action if needed
                 for (int i = 0; i < peopleList.Count; i++)

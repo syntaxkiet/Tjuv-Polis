@@ -60,18 +60,42 @@
 
         public void GetInfo()
         {
-            switch (this)
+            if (this is Civilian civilian)
             {
-                case Civilian:
-                    Console.WriteLine("Medborgare");
-                    break;
-                case Police:
-                    Console.WriteLine("Polis");
-                    break;
-                case Thief:
-                    Console.WriteLine("Tjuv");
-                    break;
+                Console.Write("Medborgare, " + "medhavande föremål: ");
+                foreach (Item item in civilian.Possessions)
+                {
+                    Console.Write(item.Name + ", ");
+                }
+                Console.Write("På plats: " + this.PosX + "," + this.PosY);
+                Console.WriteLine();
+
             }
+
+            if (this is Police police)
+            {
+                Console.Write("Polis, " + "medhavande föremål: ");
+                foreach (Item item in police.Confiscated)
+                {
+                    Console.Write(item.Name + ", ");
+                }
+                Console.Write("På plats: " + this.PosX + "," + this.PosY);
+                Console.WriteLine();
+
+            }
+
+            if (this is Thief thief)
+            {
+                Console.Write("Thief, " + "medhavande föremål: ");
+                foreach (Item item in thief.Loot)
+                {
+                    Console.Write(item.Name + ", ");
+                }
+                Console.Write("På plats: " + this.PosX + "," + this.PosY);
+                Console.WriteLine();
+
+            }
+
         }
 
         public void CheckOutOfBounds()                                      //Check if person if out of bound and replace positon to other end. 
@@ -136,10 +160,9 @@
             Confiscated = new List<Item>();                            //Constructor
         }
         public override void Action(Person person)
-        {   
+        {
             if (person is Thief && (((Thief)person).Loot.Count > 0))                    //If person is thief and the thiefs lootcount is bigger than zero
             {
-
                 Program.arrestCount++;
 
                 Console.ForegroundColor = ConsoleColor.White;
@@ -150,22 +173,25 @@
                 Thread.Sleep(2000);
                 Move();
                 person.Move();
-
+            }
+            else
+            {
+                Move();
+                person.Move();
             }
         }
     }
 
     public class Thief : Person
     {
-        public List<Item> Loot { get; set; }                            
+        public List<Item> Loot { get; set; }
         public Thief() : base()
         {
             Loot = new List<Item>();
-
         }
         public override void Action(Person person)
         {
-            if (person is Civilian)
+            if (person is Civilian && ((Civilian)person).Possessions.Count > 0)
             {
                 Program.robberyCount++;
                 Random rng = new Random();
@@ -175,6 +201,11 @@
                 Console.WriteLine("Tjuv rånar medborgare på " + (((Civilian)person).Possessions[index].Name));           //Thief takes 1 of civilians belongings and adds to his stolen goods. 
                 ((Civilian)person).Possessions.RemoveAt(index);
                 Thread.Sleep(2000);
+                Move();
+                person.Move();
+            }
+            else
+            {
                 Move();
                 person.Move();
             }
@@ -197,7 +228,7 @@
         {
             if (person is Police || person is Civilian)
             {
-                Move();                                     
+                Move();
                 person.Move();
             }
 
