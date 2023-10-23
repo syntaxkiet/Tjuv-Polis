@@ -1,4 +1,5 @@
-﻿using WMPLib;
+﻿using System.Security.Cryptography;
+using WMPLib;
 namespace Tjuv___Polis
 {
     internal class Program
@@ -7,7 +8,7 @@ namespace Tjuv___Polis
         public static int citySizeY = 25;
         public static int prisonSize = 10;
         public static int robberyCount = 0;
-        public static int arrestCount = 0;
+        public static int arrestCount = 2;
 
         //Create list of prisoners
         public static List<Person> prisonList = new List<Person>();
@@ -16,12 +17,15 @@ namespace Tjuv___Polis
         public static List<Person> personList = new List<Person>();
         static void Main(string[] args)
         {
+            Random rng = new Random();
             //Create city map (matrix)
             Person[,] cityMap = new Person[citySizeX, citySizeY];
             //Create prison map (matrix)
             Person[,] prisonMap = new Person[prisonSize, prisonSize];
             //Create an instance of MediaPlayer for surprise!
             WindowsMediaPlayer player = new WMPLib.WindowsMediaPlayer();
+            int vigilanteSpawnCD = 0;
+            int vigilanteDespawnCD = 0;
 
             //Add 20 Policemen
             for (int i = 0; i < 20; i++)
@@ -100,7 +104,7 @@ namespace Tjuv___Polis
                             if (cityMap[x, y] is Vigilante)
                             {
                                 Console.ForegroundColor = ConsoleColor.Yellow;
-                                Console.Write("B");
+                                Console.Write("V");
                             }
                             else
                             {
@@ -169,25 +173,66 @@ namespace Tjuv___Polis
                     personList[i].Move();
                 }
 
-                if (robberyCount >= 5 && !personList.OfType<Vigilante>().Any())
+
+                //Spawn a vigilante based on the criminal activity of the city. In this case, whenever the criminal activity of the city is a divisible by 5, i.e. 5, 10, 15...
+                if (robberyCount % 5 == 0 && robberyCount != 0 && vigilanteSpawnCD == 0)
                 {
-                    Console.WriteLine("Kriminaliteten är så hög att medborgaren Bruce Wayne tar på sig Batman-dräkten och säger: \"I'm Batman!\". Tjuvar, se upp!");
-                    player.URL = "BatmanThemeSong.mp3";
-                    player.settings.volume = 25;
-                    player.settings.setMode("loop", true);
-                    player.controls.play();
+                    //Randomize an index from a temporary list of Civilian objects
+                    List<int> vigilanteList = new List<int>();
+                    for (int i = 0; i < personList.Count; i++)
+                    {
+                        if (personList[i] is Civilian)
+                        {
+                            vigilanteList.Add(i);
+                        }
+                    }
+
+                    //From the randomized index value of Civilian objects, spawn a Vigilante that inherits their position and held items. 
+                    int vigilantePick = vigilanteList[rng.Next(vigilanteList.Count)];
+                    personList[vigilantePick] = new Vigilante(personList[vigilantePick].PosX, personList[vigilantePick].PosY, ((Civilian)personList[vigilantePick]).Possessions);
+                    int heroPick = rng.Next(4);
+
+                    switch (heroPick)
+                    {
+                        case 0:
+                            Console.WriteLine("Kriminaliteten är så hög att medborgaren Bruce Wayne tar på sig Batman-dräkten och säger: \"I'm BATMAN!\". Tjuvar, se upp!");
+                            player.URL = "BatmanThemeSong.mp3";
+                            player.settings.volume = 25;
+                            player.settings.setMode("loop", true);
+                            player.controls.play();
+                            break;
+                        case 1:
+                            Console.WriteLine("Sidekicken Robin tar upp kampen mot kriminaliteten!");
+                            break;
+                        case 2:
+                            Console.WriteLine("Spider Man svingar runt och vakar över stadens invånare!");
+                            break;
+                        case 3:
+                            Console.WriteLine("Iron Man tar på sig sin power suit och undsätter polisstyrkan i deras kamp mot den ökande kriminaliteten!");
+                            break;
+                        default:
+                            Console.WriteLine("En ny superhjälte har tagit på sig sin mantel!");
+                            break;
+                    }
+                    vigilanteSpawnCD = 5;
                     Thread.Sleep(4000);
-                    personList[45] = new Vigilante(personList[45].PosX, personList[45].PosY, (((Civilian)personList[45]).Possessions));
+                    
                     robberyCount++;
                 }
-                if (arrestCount >= 5)
+
+                if (arrestCount % 5 == 0 && arrestCount != 0 && vigilanteDespawnCD == 0)
                 {
                     for (int i = 0; i < personList.Count; i++)
                     {
                         if (personList[i] is Vigilante)
                         {
                             personList[i] = new Civilian();
+                            Console.WriteLine("With their work being done, the vigilante hero disappears into the night, for now...");
+                            vigilanteDespawnCD = 10;
+                            Thread.Sleep(2000);
+                            break;
                         }
+
                     }
                     player.controls.stop();
                 }
@@ -214,6 +259,17 @@ namespace Tjuv___Polis
                             personList[i].Action(personList[y]);
                         }
                     }
+                }
+
+                if (vigilanteSpawnCD > 0)
+                {
+                    vigilanteSpawnCD--;
+                }
+
+                if (vigilanteDespawnCD > 0)
+                {
+                    vigilanteDespawnCD--;
+                    
                 }
 
                 Console.ForegroundColor = ConsoleColor.White;
