@@ -1,4 +1,5 @@
-﻿namespace Tjuv___Polis
+﻿using WMPLib;
+namespace Tjuv___Polis
 {
     internal class Program
     {
@@ -19,9 +20,11 @@
             Person[,] cityMap = new Person[citySizeX, citySizeY];
             //Create prison map (matrix)
             Person[,] prisonMap = new Person[prisonSize, prisonSize];
+            //Create an instance of MediaPlayer for surprise!
+            WindowsMediaPlayer player = new WMPLib.WindowsMediaPlayer();
 
-            //Add 10 Policemen
-            for (int i = 0; i < 10; i++)
+            //Add 20 Policemen
+            for (int i = 0; i < 20; i++)
             {
                 personList.Add(new Police());
             }
@@ -97,7 +100,7 @@
                             if (cityMap[x, y] is Vigilante)
                             {
                                 Console.ForegroundColor = ConsoleColor.Yellow;
-                                Console.Write("V");
+                                Console.Write("B");
                             }
                             else
                             {
@@ -169,9 +172,24 @@
                 if (robberyCount >= 5 && !personList.OfType<Vigilante>().Any())
                 {
                     Console.WriteLine("Kriminaliteten är så hög att medborgaren Bruce Wayne tar på sig Batman-dräkten och säger: \"I'm Batman!\". Tjuvar, se upp!");
-                    Thread.Sleep(2000);
+                    player.URL = "BatmanThemeSong.mp3";
+                    player.settings.volume = 25;
+                    player.settings.setMode("loop", true);
+                    player.controls.play();
+                    Thread.Sleep(4000);
                     personList[45] = new Vigilante(personList[45].PosX, personList[45].PosY, (((Civilian)personList[45]).Possessions));
                     robberyCount++;
+                }
+                if (arrestCount >= 5)
+                {
+                    for (int i = 0; i < personList.Count; i++)
+                    {
+                        if (personList[i] is Vigilante)
+                        {
+                            personList[i] = new Civilian();
+                        }
+                    }
+                    player.controls.stop();
                 }
 
                 //Show list view
