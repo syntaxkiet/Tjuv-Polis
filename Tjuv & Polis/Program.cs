@@ -46,16 +46,16 @@
                 Array.Clear(cityMap);
                 Array.Clear(prisonMap);
 
-                //if (Console.KeyAvailable)
-                //{
-                //    ConsoleKeyInfo key = Console.ReadKey(true);
-                //    if (key.KeyChar == 'm')
-                //        showMap = true;
-                //    Console.Clear();
-                //    if (key.KeyChar == 'i')
-                //        showMap = false;
-                //    Console.Clear();
-                //}
+                if (Console.KeyAvailable)
+                {
+                    ConsoleKeyInfo key = Console.ReadKey(true);
+                    if (key.KeyChar == 'm')
+                        showMap = true;
+                    Console.Clear();
+                    if (key.KeyChar == 'i')
+                        showMap = false;
+                    Console.Clear();
+                }
 
                 //Add each person's position into the city map
                 foreach (Person people in personList)
@@ -159,20 +159,20 @@
                     personList[i].Move();
                 }
 
-                ////Move people around the city
-                //foreach (Person person in personList)
-                //{
-                //    person.Move();
-                //}
+                //Move people around the city
+                foreach (Person person in personList)
+                {
+                    person.Move();
+                }
 
-                //if (!showMap)
-                //{
-                //for (int i = 0; i < peopleList.Count; i++)
-                //{
-                //    Console.Write("Person " + (i + 1) + " ");
-                //    peopleList[i].GetInfo();
-                //}
-                //}
+                if (!showMap)
+                {
+                    for (int i = 0; i < personList.Count; i++)
+                    {
+                        Console.Write("Person " + (i + 1) + " ");
+                        personList[i].GetInfo();
+                    }
+                }
 
                 Console.WriteLine();
 

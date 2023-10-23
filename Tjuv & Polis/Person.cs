@@ -102,7 +102,7 @@
 
             if (this is Thief thief)
             {
-                Console.Write("Thief, " + "medhavande föremål: ");
+                Console.Write("Tjuv, " + "medhavande föremål: ");
                 foreach (Item item in thief.Loot)
                 {
                     Console.Write(item.Name + ", ");
