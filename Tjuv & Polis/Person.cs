@@ -8,6 +8,7 @@
         int directionCooldown = 0;
         Random rng;
 
+        //Method moving people 10 steps in same direction then randomizing new directions for the next 10 steps, etc.
         public void Move()
         {
             rng = new Random();
@@ -55,6 +56,7 @@
             PosY = PosY + directionY;
             directionCooldown--;
 
+            //Cooldown for prison sentence, returns to city
             if (Program.prisonList.Contains(this))
             {
                 (((Thief)this).SentenceTime)--;
@@ -74,6 +76,7 @@
             }
         }
 
+        //Retrieving info about person type, inventory and position
         public void GetInfo()
         {
             if (this is Civilian civilian)

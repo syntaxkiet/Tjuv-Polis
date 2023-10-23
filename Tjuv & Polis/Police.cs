@@ -14,19 +14,19 @@
                 Program.arrestCount++;
 
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("Polisen slår till mot tjuven och beslagtar hans samtliga byten");                //Police takes action and sends thief to jail. Thief inv resets. 
-                //Confiscated = Enumerable.Concat(Confiscated, ((Thief)person).Loot).ToList();
+                Console.WriteLine("Polisen slår till mot tjuven och beslagtar hans samtliga byten");                //Police takes action and sends thief to jail. Thief inv resets.
+                //Adds all loot indexes to police's confiscated items
                 Confiscated.AddRange(((Thief)person).Loot);
+                //Initiates sentence time depending on number of loot items
                 (((Thief)person).SentenceTime) = (((Thief)person).Loot.Count) * 10;
                 (((Thief)person).Loot).Clear();
+                //Randomizes start point in prison
                 Random rng = new Random();
                 person.PosX = rng.Next(0, Program.prisonSize);
                 person.PosY = rng.Next(0, Program.prisonSize);
                 Program.prisonList.Add(person);
                 Program.personList.Remove(person);
                 Thread.Sleep(2000);
-                //Move();
-                //person.Move();
             }
             else
             {

@@ -15,6 +15,7 @@
             {
                 Program.robberyCount++;
                 Random rng = new Random();
+                //Loots one random item and adds to loot list.
                 int index = rng.Next(0, ((Civilian)person).Possessions.Count);
                 Loot.Add((((Civilian)person).Possessions[index]));
                 Console.ForegroundColor = ConsoleColor.White;

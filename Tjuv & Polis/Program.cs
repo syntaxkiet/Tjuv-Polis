@@ -46,6 +46,7 @@
                 Array.Clear(cityMap);
                 Array.Clear(prisonMap);
 
+                //SHow map or list on key press
                 if (Console.KeyAvailable)
                 {
                     ConsoleKeyInfo key = Console.ReadKey(true);
@@ -63,6 +64,7 @@
                     cityMap[people.PosX, people.PosY] = people;
                 }
 
+                //Show map view
                 if (showMap)
                 {
                     //Print map of city and people
@@ -153,18 +155,13 @@
                     prisonList[i].Move();
                 }
 
-                //Move people around the prison
+                //Move people around the city
                 for (int i = 0; i < personList.Count; i++)
                 {
                     personList[i].Move();
                 }
 
-                //Move people around the city
-                foreach (Person person in personList)
-                {
-                    person.Move();
-                }
-
+                //Show list view
                 if (!showMap)
                 {
                     for (int i = 0; i < personList.Count; i++)
