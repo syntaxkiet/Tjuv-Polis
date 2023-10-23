@@ -52,8 +52,8 @@
                 }
             }
 
-            PosX = PosX + directionX;
-            PosY = PosY + directionY;
+            PosX += directionX;
+            PosY += directionY;
             directionCooldown--;
 
             //Cooldown for prison sentence, returns to city

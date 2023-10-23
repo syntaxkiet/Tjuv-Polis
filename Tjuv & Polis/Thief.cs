@@ -11,16 +11,16 @@
         }
         public override void Action(Person person)
         {
-            if (person is Civilian && ((Civilian)person).Possessions.Count > 0)
+            if (person is Civilian civ && civ.Possessions.Count > 0)
             {
                 Program.robberyCount++;
                 Random rng = new Random();
                 //Loots one random item and adds to loot list.
                 int index = rng.Next(0, ((Civilian)person).Possessions.Count);
-                Loot.Add((((Civilian)person).Possessions[index]));
+                Loot.Add(civ.Possessions[index]);
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("Tjuv rånar medborgare på " + (((Civilian)person).Possessions[index].Name));           //Thief takes 1 of civilians belongings and adds to his stolen goods. 
-                ((Civilian)person).Possessions.RemoveAt(index);
+                Console.WriteLine("Tjuv rånar medborgare på " + civ.Possessions[index].Name);           //Thief takes 1 of civilians belongings and adds to his stolen goods. 
+                civ.Possessions.RemoveAt(index);
                 Thread.Sleep(2000);
                 Move();
                 person.Move();

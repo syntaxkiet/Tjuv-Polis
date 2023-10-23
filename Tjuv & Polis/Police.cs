@@ -9,17 +9,17 @@
         }
         public override void Action(Person person)
         {
-            if (person is Thief && (((Thief)person).Loot.Count > 0))                    //If person is thief and the thiefs lootcount is bigger than zero
+            if (person is Thief thief && thief.Loot.Count > 0)                    //If person is thief and the thiefs lootcount is bigger than zero
             {
                 Program.arrestCount++;
 
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("Polisen slår till mot tjuven och beslagtar hans samtliga byten");                //Police takes action and sends thief to jail. Thief inv resets.
                 //Adds all loot indexes to police's confiscated items
-                Confiscated.AddRange(((Thief)person).Loot);
+                Confiscated.AddRange(thief.Loot);
                 //Initiates sentence time depending on number of loot items
-                (((Thief)person).SentenceTime) = (((Thief)person).Loot.Count) * 10;
-                (((Thief)person).Loot).Clear();
+                thief.SentenceTime = (thief.Loot.Count * 10);
+                thief.Loot.Clear();
                 //Randomizes start point in prison
                 Random rng = new Random();
                 person.PosX = rng.Next(0, Program.prisonSize);
