@@ -21,7 +21,7 @@
             Person[,] prisonMap = new Person[prisonSize, prisonSize];
 
             //Add 10 Policemen
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 10; i++)
             {
                 personList.Add(new Police());
             }
@@ -94,6 +94,11 @@
                                 Console.ForegroundColor = ConsoleColor.White;
                                 Console.Write("M");
                             }
+                            if (cityMap[x, y] is Vigilante)
+                            {
+                                Console.ForegroundColor = ConsoleColor.Yellow;
+                                Console.Write("V");
+                            }
                             else
                             {
                                 Console.Write(" ");
@@ -159,6 +164,14 @@
                 for (int i = 0; i < personList.Count; i++)
                 {
                     personList[i].Move();
+                }
+
+                if (robberyCount >= 5 && !personList.OfType<Vigilante>().Any())
+                {
+                    Console.WriteLine("Kriminaliteten är så hög att medborgaren Bruce Wayne tar på sig Batman-dräkten och säger: \"I'm Batman!\". Tjuvar, se upp!");
+                    Thread.Sleep(2000);
+                    personList[45] = new Vigilante(personList[45].PosX, personList[45].PosY, (((Civilian)personList[45]).Possessions));
+                    robberyCount++;
                 }
 
                 //Show list view

@@ -4,8 +4,11 @@
     {
         public int PosX { get; set; }
         public int PosY { get; set; }
+        public bool Immobilized { get; set; }
+        public int ImmobilizedCountdown { get; set; }
         public int directionX, directionY;
         int directionCooldown = 0;
+
         Random rng;
 
         //Method moving people 10 steps in same direction then randomizing new directions for the next 10 steps, etc.
@@ -52,9 +55,25 @@
                 }
             }
 
-            PosX += directionX;
-            PosY += directionY;
-            directionCooldown--;
+            if (!Immobilized)
+            {
+                if (this is Vigilante)
+                {
+                    PosX += directionX * 2;
+                    PosY += directionY * 2;
+                }
+                else
+                {
+                    PosX += directionX;
+                    PosY += directionY;
+                }
+                directionCooldown--;
+            }
+
+            if (Immobilized)
+            {
+                ImmobilizedCountdown--;
+            }
 
             //Cooldown for prison sentence, returns to city
             if (Program.prisonList.Contains(this))
@@ -113,6 +132,17 @@
                 Console.Write("På plats: " + this.PosX + "," + this.PosY);
                 Console.WriteLine();
 
+            }
+
+            if (this is Vigilante vigilante)
+            {
+                Console.Write("Vigilante, " + "medhavande föremål: ");
+                foreach (Item item in vigilante.Gadgets)
+                {
+                    Console.Write(item.Name + ", ");
+                }
+                Console.Write("På plats: " + this.PosX + "," + this.PosY);
+                Console.WriteLine();
             }
 
         }
