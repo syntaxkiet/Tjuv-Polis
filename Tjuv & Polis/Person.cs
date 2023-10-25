@@ -147,7 +147,7 @@
 
         }
 
-        public void CheckOutOfBoundsCity()                                      //Check if person if out of bound and replace positon to other end. 
+        public void CheckOutOfBoundsCity()                                      //Check if person if out of bound and replace position to other end. 
         {
             if (PosX < 0 && PosY < 0)
             {
@@ -237,7 +237,7 @@
         public Person()
         {
             rng = new Random();
-            PosX = rng.Next(0, Program.citySizeX);          //Gives start positon to each person (X,Y)
+            PosX = rng.Next(0, Program.citySizeX);          //Gives start position to each person (X,Y)
             PosY = rng.Next(0, Program.citySizeY);
         }
     }

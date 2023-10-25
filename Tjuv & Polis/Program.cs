@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography;
-using WMPLib;
+﻿using WMPLib;
 namespace Tjuv___Polis
 {
     internal class Program
@@ -7,8 +6,8 @@ namespace Tjuv___Polis
         public static int citySizeX = 100;
         public static int citySizeY = 25;
         public static int prisonSize = 10;
-        public static int robberyCount = 0;
-        public static int arrestCount = 2;
+        public static int robberyCount = 4;
+        public static int arrestCount = 0;
 
         //Create list of prisoners
         public static List<Person> prisonList = new List<Person>();
@@ -202,13 +201,25 @@ namespace Tjuv___Polis
                             player.controls.play();
                             break;
                         case 1:
-                            Console.WriteLine("Sidekicken Robin tar upp kampen mot kriminaliteten!");
+                            Console.WriteLine("Luke Skywalker landar med sin X-Wing och leder motståndsrörelsen mot den mörka sidan!");
+                            player.URL = "TheForceThemeSong.mp3";
+                            player.settings.volume = 50;
+                            player.settings.setMode("loop", true);
+                            player.controls.play();
                             break;
                         case 2:
                             Console.WriteLine("Spider Man svingar runt och vakar över stadens invånare!");
+                            player.URL = "SpiderManThemeSong.mp3";
+                            player.settings.volume = 25;
+                            player.settings.setMode("loop", true);
+                            player.controls.play();
                             break;
                         case 3:
                             Console.WriteLine("Iron Man tar på sig sin power suit och undsätter polisstyrkan i deras kamp mot den ökande kriminaliteten!");
+                            player.URL = "IronManThemeSong.mp3";
+                            player.settings.volume = 25;
+                            player.settings.setMode("loop", true);
+                            player.controls.play();
                             break;
                         default:
                             Console.WriteLine("En ny superhjälte har tagit på sig sin mantel!");
@@ -216,7 +227,7 @@ namespace Tjuv___Polis
                     }
                     vigilanteSpawnCD = 5;
                     Thread.Sleep(4000);
-                    
+
                     robberyCount++;
                 }
 
@@ -269,7 +280,7 @@ namespace Tjuv___Polis
                 if (vigilanteDespawnCD > 0)
                 {
                     vigilanteDespawnCD--;
-                    
+
                 }
 
                 Console.ForegroundColor = ConsoleColor.White;
