@@ -32,8 +32,7 @@ namespace Tjuv___Polis
                 grid[people.PosX, people.PosY] = people;
             }
 
-           
-                //Print map of city and people
+                //Print map of the current grid, and people
                 Console.WriteLine(mapName);
                 for (int i = 0; i <= sizeX; i++)
                 {
@@ -82,6 +81,9 @@ namespace Tjuv___Polis
 
                 Console.WriteLine();
             }
-
+        public void Clear()
+        {
+            Array.Clear(grid);
+        }
     }
 }

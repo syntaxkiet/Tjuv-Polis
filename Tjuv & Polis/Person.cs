@@ -79,15 +79,19 @@
             if (Program.prisonList.Contains(this))
             {
                 (((Thief)this).SentenceTime)--;
-                CheckOutOfBoundsPrison();
+                CheckOutOfBoundsAlt();
                 if ((((Thief)this).SentenceTime) == 0)
                 {
                     Random rng = new Random();
                     this.PosX = rng.Next(0, Program.citySizeX);
                     this.PosY = rng.Next(0, Program.citySizeY);
-                    Program.personList.Add(this);
+                    Program.cityList.Add(this);
                     Program.prisonList.Remove(this);
                 }
+            }
+            else if (Program.poorHouseList.Contains(this))
+            {
+                CheckOutOfBoundsAlt();
             }
             else
             {
@@ -188,44 +192,44 @@
             }
         }
 
-        public void CheckOutOfBoundsPrison()                                      //Check if person if out of bound and replace positon to other end. 
+        public void CheckOutOfBoundsAlt()                                      //Check if person if out of bound and replace positon to other end. 
         {
             if (PosX < 0 && PosY < 0)
             {
-                PosY = Program.prisonSize - 1;
-                PosX = Program.prisonSize - 1;
+                PosY = Program.AltSize - 1;
+                PosX = Program.AltSize - 1;
             }
-            else if (PosX > Program.prisonSize - 1 && PosY > Program.prisonSize - 1)
+            else if (PosX > Program.AltSize - 1 && PosY > Program.AltSize - 1)
             {
                 PosY = 0;
                 PosX = 0;
             }
-            else if (PosX > Program.prisonSize - 1 && PosY < 0)
+            else if (PosX > Program.AltSize - 1 && PosY < 0)
             {
                 PosX = 0;
-                PosY = Program.prisonSize - 1;
+                PosY = Program.AltSize - 1;
             }
-            else if (PosX < 0 && PosY > Program.prisonSize - 1)
+            else if (PosX < 0 && PosY > Program.AltSize - 1)
             {
-                PosX = Program.prisonSize - 1;
+                PosX = Program.AltSize - 1;
                 PosY = 0;
             }
 
-            else if (PosX > Program.prisonSize - 1)
+            else if (PosX > Program.AltSize - 1)
             {
                 PosX = 0;
             }
             else if (PosX < 0)
             {
-                PosX = Program.prisonSize - 1;
+                PosX = Program.AltSize - 1;
             }
-            else if (PosY > Program.prisonSize - 1)
+            else if (PosY > Program.AltSize - 1)
             {
                 PosY = 0;
             }
             else if (PosY < 0)
             {
-                PosY = Program.prisonSize - 1;
+                PosY = Program.AltSize - 1;
             }
         }
 
