@@ -10,11 +10,12 @@
             Gadgets = gadgets;
         }
 
+        //Incomplete, revision required
         public override void Action(Person person)
         {
             if (person is Thief thief && thief.Loot.Count > 0)
             {
-                //Vigilante immobilizes thief for 5 turns
+                
                 thief.Immobilized = true;
                 thief.ImmobilizedCountdown = 5;
                 Console.WriteLine("Batman slår till och immobiliserar tjuven.");

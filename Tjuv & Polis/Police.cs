@@ -22,12 +22,23 @@
                 thief.Loot.Clear();
                 //Randomizes start point in prison
                 Random rng = new Random();
-                person.PosX = rng.Next(0, Program.prisonSize);
-                person.PosY = rng.Next(0, Program.prisonSize);
+                person.PosX = rng.Next(0, 10);
+                person.PosY = rng.Next(0, 10);
                 Program.prisonList.Add(person);
-                Program.personList.Remove(person);
+                Program.cityList.Remove(person);
                 Thread.Sleep(2000);
             }
+            else if (person is Civilian civ && civ.Possessions.Count == 0)
+            {
+                Console.WriteLine("Polisen tar den luspanka medborgaren i sitt förvar, och denna finner sitt nya hem i fattighuset.");
+                Random rng = new Random();
+                person.PosX = rng.Next(0, 10);
+                person.PosY = rng.Next(0, 10);
+                Program.poorHouseList.Add(person);
+                Program.cityList.Remove(person);
+                Thread.Sleep(2000);
+            }
+
             else
             {
                 Move();
