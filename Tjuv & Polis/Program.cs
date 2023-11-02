@@ -53,15 +53,29 @@ namespace Tjuv___Polis
                 if (Console.KeyAvailable)
                 {
                     ConsoleKeyInfo key = Console.ReadKey(true);
-                    if (key.KeyChar == 'm')
-                        showMap = true;
-                    Console.Clear();
-                    if (key.KeyChar == 'i')
-                        showMap = false;
-                    Console.Clear();
+
+                    switch (key.KeyChar)
+                    {
+                        case 'm':
+                           showMap = true;
+                            Console.Clear();
+                            break;
+                        case 'i':
+                            showMap=false;
+                            Console.Clear();
+                            break;
+                        case 'p':
+                            cityList.Add(new Police());
+                            break;
+                        case 't':
+                            cityList.Add(new Thief());
+                            break;
+                        case 'c':
+                            cityList.Add(new Civilian());
+                            break;
+                    }
+
                 }
-
-
 
                 //Show map view
                 if (showMap)
@@ -75,9 +89,34 @@ namespace Tjuv___Polis
                     cityMap.Draw();
                     prisonMap.Draw();
                     poorHouseMap.Draw();
+                }
 
-                    //Updates movement
+                //Show list view
+                if (!showMap)
+                {
+                    Console.WriteLine("Stadens invånare:");
+                    for (int i = 0; i < cityList.Count; i++)
+                    {
+                        Console.Write("Person " + (i + 1) + " ");
+                        cityList[i].GetInfo();
+                    }
+                    Console.WriteLine("Fängslade brottslingar:");
                     for (int i = 0; i < prisonList.Count; i++)
+                    {
+                        Console.Write("Person " + (i + 1) + " ");
+                        prisonList[i].GetInfo();
+                    }
+                    Console.WriteLine("De i 'utanförskap':");
+                    for (int i = 0; i < poorHouseList.Count; i++)
+                    {
+                        Console.Write("Person " + (i + 1) + " ");
+                        poorHouseList[i].GetInfo();
+                    }
+
+                }
+
+                //Updates movement
+                for (int i = 0; i < prisonList.Count; i++)
                     {
                         prisonList[i].Move();
                     }
@@ -186,6 +225,7 @@ namespace Tjuv___Polis
                         }
                     }
 
+                    //Vigilante spawning logic
                     if (vigilanteSpawnCD > 0)
                     {
                         vigilanteSpawnCD--;
@@ -204,33 +244,6 @@ namespace Tjuv___Polis
                     Console.Clear();
                 }
 
-                //Show list view
-                if (!showMap)
-                {
-                    Console.WriteLine("Stadens invånare:");
-                    for (int i = 0; i < cityList.Count; i++)
-                    {
-                        Console.Write("Person " + (i + 1) + " ");
-                        cityList[i].GetInfo();
-                    }
-                    Console.WriteLine("Fängslade brottslingar:");
-                    for (int i = 0; i < prisonList.Count; i++)
-                    {
-                        Console.Write("Person " + (i + 1) + " ");
-                        prisonList[i].GetInfo();
-                    }
-                    Console.WriteLine("De i 'utanförskap':");
-                    for (int i = 0; i < poorHouseList.Count; i++)
-                    {
-                        Console.Write("Person " + (i + 1) + " ");
-                        poorHouseList[i].GetInfo();
-                    }
-
-                    Thread.Sleep(1000);
-                    Console.Clear();
-                }
-
             }
         }
     }
-}

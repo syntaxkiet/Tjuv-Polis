@@ -25,6 +25,7 @@ namespace Tjuv___Polis
 
         }
 
+        //Draw out the grid with objects
         public void Draw()
         {
             foreach (Person people in personList)
@@ -81,6 +82,8 @@ namespace Tjuv___Polis
 
                 Console.WriteLine();
             }
+
+        //Clears the current grid, use ahead of a new draw
         public void Clear()
         {
             Array.Clear(grid);

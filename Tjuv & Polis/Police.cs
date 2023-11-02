@@ -28,7 +28,7 @@
                 Program.cityList.Remove(person);
                 Thread.Sleep(2000);
             }
-            else if(person is Civilian civ && civ.Possessions.Count == 0)
+            else if (person is Civilian civ && civ.Possessions.Count == 0)
             {
                 Console.WriteLine("Polisen tar den luspanka medborgaren i sitt förvar, och denna finner sitt nya hem i fattighuset.");
                 Random rng = new Random();
