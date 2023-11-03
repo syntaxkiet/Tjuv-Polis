@@ -1,21 +1,33 @@
-﻿namespace Tjuv___Polis
+﻿using System.Security.Cryptography;
+
+namespace Tjuv___Polis
 {
     public class Civilian : Person
     {
-        public List<Item> Possessions { get; set; }
-        public Civilian() : base()
+        List<Item> itemList = new List<Item>()
         {
-             
-            Possessions = new List<Item>    //List of things.
-            {
             new Item("Nycklar"),
             new Item("Mobil"),
-            new Item("Pengar"),                    //Each civilian has these 5 following things. 
-            new Item("Klocka")
+            new Item("Pengar"),
+            new Item("Klocka"),
+            new Item("Plånbok"),
+            new Item("Surfplatta"),
+            new Item("Dator"),
+            new Item("Smycken"),
+        };
+        Random rng = new Random();
 
-            };
-            
-        }
+        public List<Item> Possessions;
+        public Civilian() : base()
+        {
+            Possessions = new List<Item>();
+            for (int i = 0; i < 4; i++)
+            {
+                int itemPick = rng.Next(itemList.Count);
+                Possessions.Add(itemList[itemPick]);
+            }
+
+    }
 
         public override void Action(Person person)
         {

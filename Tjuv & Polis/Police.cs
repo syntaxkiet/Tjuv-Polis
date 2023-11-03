@@ -14,7 +14,7 @@
                 Program.arrestCount++;
 
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("Polisen slår till mot tjuven och beslagtar hans samtliga byten");                //Police takes action and sends thief to jail. Thief inv resets.
+                Console.WriteLine("Polisen slår till mot tjuven och beslagtar hans samtliga byten!");                //Police takes action and sends thief to jail. Thief inv resets.
                 //Adds all loot indexes to police's confiscated items
                 Confiscated.AddRange(thief.Loot);
                 //Initiates sentence time depending on number of loot items

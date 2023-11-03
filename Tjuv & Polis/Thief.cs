@@ -19,7 +19,7 @@
                 int index = rng.Next(0, ((Civilian)person).Possessions.Count);
                 Loot.Add(civ.Possessions[index]);
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("Tjuv rånar medborgare på " + civ.Possessions[index].Name);           //Thief takes 1 of civilians belongings and adds to his stolen goods. 
+                Console.WriteLine("Tjuv rånar medborgare på " + civ.Possessions[index].Name + "!");           //Thief takes 1 of civilians belongings and adds to his stolen goods. 
                 civ.Possessions.RemoveAt(index);
                 Thread.Sleep(2000);
                 Move();

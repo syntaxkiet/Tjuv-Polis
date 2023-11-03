@@ -88,5 +88,64 @@ namespace Tjuv___Polis
         {
             Array.Clear(grid);
         }
+
+        //Move and update the position of each object in each list
+        public static void MovementUpdate()
+        {
+            
+            for (int i = 0; i < Program.prisonList.Count; i++)
+            {
+                Program.prisonList[i].Move();
+            }
+
+            for (int i = 0; i < Program.cityList.Count; i++)
+            {
+                Program.cityList[i].Move();
+            }
+
+            for (int i = 0; i < Program.poorHouseList.Count; i++)
+            {
+                Program.poorHouseList[i].Move();
+            }
+
+
+            //Compares objects' coordinates to initiate action if needed
+            for (int i = 0; i < Program.cityList.Count; i++)
+            {
+                for (int y = 0; y < Program.cityList.Count; y++)
+                {
+                    if (Program.cityList[i].PosY == Program.cityList[y].PosY && Program.cityList[i].PosX == Program.cityList[y].PosX && Program.cityList[i] != Program.cityList[y])
+                    {
+                        Program.cityList[i].Action(Program.cityList[y]);
+                    }
+                }
+            }
+        }
+        //Iterate through each of the lists and print out individual information for each object within each list
+        public static void ShowInfo()
+        {
+           
+            Console.WriteLine("Stadens invånare:");
+            for (int i = 0; i < Program.cityList.Count; i++)
+            {
+                Console.Write("Person " + (i + 1) + " ");
+                Program.cityList[i].GetInfo();
+            }
+            Console.WriteLine();
+            Console.WriteLine("Fängslade brottslingar:");
+            for (int i = 0; i < Program.prisonList.Count; i++)
+            {
+                Console.Write("Person " + (i + 1) + " ");
+                Program.prisonList[i].GetInfo();
+            }
+            Console.WriteLine();
+            Console.WriteLine("De i 'utanförskap':");
+            for (int i = 0; i < Program.poorHouseList.Count; i++)
+            {
+                Console.Write("Person " + (i + 1) + " ");
+                Program.poorHouseList[i].GetInfo();
+            }
+            Console.WriteLine();
+        }
     }
 }
