@@ -6,10 +6,11 @@ namespace Tjuv___Polis
         public static int citySizeX = 100;
         public static int citySizeY = 25;
         public static int AltSize = 10;
-        public static int robberyCount = 0;
+        public static int robberyCount = 3;
         public static int arrestCount = 0;
         public static int vigilanteSpawnCD = 0;
         public static int vigilanteDespawnCD = 0;
+        
         //Create respective lists
         public static List<Person> cityList = new List<Person>();
         public static List<Person> prisonList = new List<Person>();
@@ -40,7 +41,12 @@ namespace Tjuv___Polis
             {
                 cityList.Add(new Civilian());
             }
-            bool showMap = true;
+
+
+
+              bool Sleep = false;
+              bool showMap = true;
+              int sleepInterval = 1000;
 
             //Main loop
             while (true)
@@ -73,6 +79,30 @@ namespace Tjuv___Polis
                         case 'r':
                             cityList.RemoveAt(cityList.Count - 1);
                             break;
+                        case 's':
+                            //Remove the sleep thread delay, allowing for faster updates during debug
+                            if (Sleep)
+                            {
+                                sleepInterval = 0;
+                                Sleep = false;
+                            }
+                            else
+                            {
+                                sleepInterval = 1000;
+                                Sleep = true;
+                            }
+                            break;
+                        case 'q':
+                            //Empties all civilian items, ONLY USE THIS DURING DEBUGGING
+                            for (int i = 0; i < cityList.Count; i++)
+                            {
+                                if (cityList[i] is Civilian civ)
+                                {
+                                    civ.Possessions.Clear();
+                                }
+                            }
+                            break;
+
                     }
 
                 }
@@ -118,7 +148,7 @@ namespace Tjuv___Polis
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine($"Antal rånade medborgare: {robberyCount}");
                     Console.WriteLine($"Antal gripna tjuvar: {arrestCount}");
-                    Thread.Sleep(1000);
+                    Thread.Sleep(sleepInterval);
                     Console.Clear();
                 }
 
