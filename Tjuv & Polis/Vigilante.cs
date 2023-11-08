@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Numerics;
 using System.Security.Cryptography;
 using WMPLib;
 
@@ -16,15 +17,49 @@ namespace Tjuv___Polis
             Gadgets = gadgets;
         }
 
-        
+        public int ActiveTime = 30;
+
+        public void DetectProximity()
+        {
+            //Traverse all the neighboring squares to see if there is an interactable object
+            Action(PosX, (PosY + 1));
+            Action((PosX + 1), (PosY + 1));
+            Action((PosX + 1), PosY);
+            Action((PosX + 1), (PosY - 1));
+            Action(PosX, (PosY - 1));
+            Action((PosX - 1), (PosY - 1));
+            Action((PosX - 1), PosY);
+            Action((PosX - 1), (PosY + 1));
+
+            }
+
+        void Action(int posX, int posY)
+        {
+            //If interactable object found, immobilize the target. This function is used in combination with DetectProximity()
+            for (int i = 0; i < Program.cityList.Count; i++)
+            {
+                if (Program.cityList[i] is Thief thief && posX == thief.PosX && posY == thief.PosY)
+                {
+                    if (thief.Loot.Count > 0 && thief.Immobilized == false)
+                    {
+                        thief.Immobilized = true;
+                        thief.ImmobilizedCountdown = 10;
+                        Console.WriteLine("Hjälten slår till och immobiliserar tjuven!");
+                        Thread.Sleep(2000);
+                    }
+                }
+            }
+        }
+
         public override void Action(Person person)
         {
+            //If interactable object found, immobilize the target, otherwise, move to prevent overlap. 
             if (person is Thief thief && thief.Loot.Count > 0)
             {
                 
                 thief.Immobilized = true;
                 thief.ImmobilizedCountdown = 5;
-                Console.WriteLine("Batman slår till och immobiliserar tjuven.");
+                Console.WriteLine("Hjälten slår till och immobiliserar tjuven!");
                 Thread.Sleep(2000);
                 Move();
             }
@@ -35,6 +70,7 @@ namespace Tjuv___Polis
             }
         }
 
+        
         public static void SpawnVigilante()
         {
             Random rng = new Random();
@@ -87,7 +123,7 @@ namespace Tjuv___Polis
                     Console.WriteLine("En ny superhjälte har tagit på sig sin mantel!");
                     break;
             }
-            Program.vigilanteSpawnCD = 5;
+            Program.vigilanteSpawnCD = 20;
             Thread.Sleep(4000);
 
             Program.robberyCount++;
@@ -95,12 +131,13 @@ namespace Tjuv___Polis
 
         public static void DespawnVigilante()
         {
+            //Despawn the latest Vigilante
             for (int i = 0; i < Program.cityList.Count; i++)
             {
                 if (Program.cityList[i] is Vigilante)
                 {
                     Program.cityList[i] = new Civilian();
-                    Console.WriteLine("With their work being done, the vigilante hero disappears into the night, for now...");
+                    Console.WriteLine("Hjälten försvinner i nattens ridå, för stunden...");
                     Program.vigilanteDespawnCD = 10;
                     Thread.Sleep(2000);
                     break;

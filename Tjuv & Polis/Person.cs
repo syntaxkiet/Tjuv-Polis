@@ -57,10 +57,24 @@
 
             if (!Immobilized)
             {
-                if (this is Vigilante)
+                //Unique movement set for the Vigilante, moves two squares instead of one, and checks its perimeter for interactable objects once per square moved.
+                //Also checks if the Vigilante still has active time, otherwise despawn. 
+                if (this is Vigilante vigilante)
                 {
-                    PosX += directionX * 2;
-                    PosY += directionY * 2;
+                    PosX += directionX;
+                    PosY += directionY;
+                    vigilante.DetectProximity();
+                    PosX += directionX;
+                    PosY += directionY;
+                    vigilante.DetectProximity();
+
+                    vigilante.ActiveTime--;
+
+                    if (vigilante.ActiveTime <= 0) 
+                    {
+                        Vigilante.DespawnVigilante();
+                    }
+
                 }
                 else
                 {

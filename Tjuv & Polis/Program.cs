@@ -6,7 +6,7 @@ namespace Tjuv___Polis
         public static int citySizeX = 100;
         public static int citySizeY = 25;
         public static int AltSize = 10;
-        public static int robberyCount = 3;
+        public static int robberyCount = 0;
         public static int arrestCount = 0;
         public static int vigilanteSpawnCD = 0;
         public static int vigilanteDespawnCD = 0;
@@ -76,6 +76,9 @@ namespace Tjuv___Polis
                         case 'c':
                             cityList.Add(new Civilian());
                             break;
+                        case 'v':
+                            cityList.Add(new Vigilante(rng.Next(citySizeX), rng.Next(citySizeY), new List<Item>()));
+                            break;
                         case 'r':
                             cityList.RemoveAt(cityList.Count - 1);
                             break;
@@ -129,7 +132,7 @@ namespace Tjuv___Polis
 
                 //Updates movement of Persons objects & initiate actions if needed
                 Map.MovementUpdate();
-
+                Vigilante.UpdateVigilate();
 
                     //Spawn a vigilante based on the criminal activity of the city. In this case, whenever the criminal activity of the city is a divisible by 5, i.e. 5, 10, 15...
                     if (robberyCount % 5 == 0 && robberyCount != 0 && vigilanteSpawnCD == 0)
@@ -144,7 +147,6 @@ namespace Tjuv___Polis
                     }
                               
                     Console.WriteLine();        
-
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine($"Antal rånade medborgare: {robberyCount}");
                     Console.WriteLine($"Antal gripna tjuvar: {arrestCount}");
