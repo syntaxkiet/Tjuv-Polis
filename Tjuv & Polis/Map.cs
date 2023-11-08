@@ -92,7 +92,8 @@ namespace Tjuv___Polis
         //Move and update the position of each object in each list
         public static void MovementUpdate()
         {
-            
+
+ 
             for (int i = 0; i < Program.prisonList.Count; i++)
             {
                 Program.prisonList[i].Move();

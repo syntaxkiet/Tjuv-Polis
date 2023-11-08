@@ -30,6 +30,7 @@
             }
             else if (person is Civilian civ && civ.Possessions.Count == 0)
             {
+                //Lets the police move civilians with no items to the alms-house
                 Console.WriteLine("Polisen tar den luspanka medborgaren i sitt förvar, och denna finner sitt nya hem i fattighuset.");
                 Random rng = new Random();
                 person.PosX = rng.Next(0, 10);
