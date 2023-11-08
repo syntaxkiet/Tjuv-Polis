@@ -58,7 +58,7 @@ namespace Tjuv___Polis
             {
                 
                 thief.Immobilized = true;
-                thief.ImmobilizedCountdown = 5;
+                thief.ImmobilizedCountdown = 10;
                 Console.WriteLine("Hjälten slår till och immobiliserar tjuven!");
                 Thread.Sleep(2000);
                 Move();

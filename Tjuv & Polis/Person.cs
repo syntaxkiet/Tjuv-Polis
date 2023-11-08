@@ -210,40 +210,40 @@
         {
             if (PosX < 0 && PosY < 0)
             {
-                PosY = Program.AltSize - 1;
-                PosX = Program.AltSize - 1;
+                PosY = Program.AltSizeY - 1;
+                PosX = Program.AltSizeX - 1;
             }
-            else if (PosX > Program.AltSize - 1 && PosY > Program.AltSize - 1)
+            else if (PosX > Program.AltSizeX - 1 && PosY > Program.AltSizeY - 1)
             {
                 PosY = 0;
                 PosX = 0;
             }
-            else if (PosX > Program.AltSize - 1 && PosY < 0)
+            else if (PosX > Program.AltSizeX - 1 && PosY < 0)
             {
                 PosX = 0;
-                PosY = Program.AltSize - 1;
+                PosY = Program.AltSizeY - 1;
             }
-            else if (PosX < 0 && PosY > Program.AltSize - 1)
+            else if (PosX < 0 && PosY > Program.AltSizeY - 1)
             {
-                PosX = Program.AltSize - 1;
+                PosX = Program.AltSizeX - 1;
                 PosY = 0;
             }
 
-            else if (PosX > Program.AltSize - 1)
+            else if (PosX > Program.AltSizeX - 1)
             {
                 PosX = 0;
             }
             else if (PosX < 0)
             {
-                PosX = Program.AltSize - 1;
+                PosX = Program.AltSizeX - 1;
             }
-            else if (PosY > Program.AltSize - 1)
+            else if (PosY > Program.AltSizeY - 1)
             {
                 PosY = 0;
             }
             else if (PosY < 0)
             {
-                PosY = Program.AltSize - 1;
+                PosY = Program.AltSizeY - 1;
             }
         }
 
