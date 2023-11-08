@@ -147,7 +147,7 @@ namespace Tjuv___Polis
             player.controls.stop();
         }
 
-        public static void UpdateVigilate()
+        public static void UpdateVigilante()
         {
             //Vigilante spawning logic
             if (Program.vigilanteSpawnCD > 0)

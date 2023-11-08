@@ -5,7 +5,7 @@ namespace Tjuv___Polis
     {
         public static int citySizeX = 100;
         public static int citySizeY = 25;
-        public static int AltSize = 10;
+        public static int AltSize = 20;
         public static int robberyCount = 0;
         public static int arrestCount = 0;
         public static int vigilanteSpawnCD = 0;
@@ -132,7 +132,7 @@ namespace Tjuv___Polis
 
                 //Updates movement of Persons objects & initiate actions if needed
                 Map.MovementUpdate();
-                Vigilante.UpdateVigilate();
+                Vigilante.UpdateVigilante();
 
                     //Spawn a vigilante based on the criminal activity of the city. In this case, whenever the criminal activity of the city is a divisible by 5, i.e. 5, 10, 15...
                     if (robberyCount % 5 == 0 && robberyCount != 0 && vigilanteSpawnCD == 0)
@@ -140,7 +140,7 @@ namespace Tjuv___Polis
                         Vigilante.SpawnVigilante();
                     }
                     
-                    //Despawn the vigilante when the city reaches stable crime levels
+                    //Despawn the vigilante when the city reaches relatively stable crime levels
                     if (arrestCount % 5 == 0 && arrestCount != 0 && vigilanteDespawnCD == 0)
                     {
                         Vigilante.DespawnVigilante();

@@ -18,6 +18,7 @@ namespace Tjuv___Polis
         Random rng = new Random();
 
         public List<Item> Possessions;
+
         public Civilian() : base()
         {
             Possessions = new List<Item>();
