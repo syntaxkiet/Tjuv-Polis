@@ -5,7 +5,7 @@ namespace Tjuv___Polis
     {
         public static int citySizeX = 100;
         public static int citySizeY = 25;
-        public static int AltSize = 20;
+        public static int AltSize = 10;
         public static int robberyCount = 0;
         public static int arrestCount = 0;
         public static int vigilanteSpawnCD = 0;
@@ -42,8 +42,6 @@ namespace Tjuv___Polis
                 cityList.Add(new Civilian());
             }
 
-
-
               bool Sleep = false;
               bool showMap = true;
               int sleepInterval = 1000;
@@ -51,7 +49,8 @@ namespace Tjuv___Polis
             //Main loop
             while (true)
             {
-                
+                Console.WriteLine("M = Map View, I = Info Lista, P = Lägg till polis, T = Lägg till tjuv, C = Lägg till medborgare, V = Lägg till hjälte, R = Ta bort senaste objekt, S = Turbo-mode, Q = Ta bort alla föremål från civila");
+                Console.WriteLine();
                 //Show map(M) or list(I) on key press, with additional functions to add extra police(P), thief(T), Civilian(C) and to remove the latest added person(R)
                 if (Console.KeyAvailable)
                 {
